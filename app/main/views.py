@@ -1,37 +1,59 @@
 from flask import flash, redirect, render_template, request, url_for
+from flask_login import login_required, current_user
 
-from .forms import ContactForm
+from . import main
+from .forms import ContactForm, PasswordForm, PasswordForm
 
-from .. import app, db
+from .. import db
 from ..models import Post
 
 
-@app.route('/')
+@main.route('/')
 def index():
     return render_template('index.html')
 
 
-@app.route('/about')
+@main.route('/about')
 def about():
     return render_template('about.html')
 
 
-@app.route('/blog')
+@main.route('/blog')
 def blog():
     return render_template('blog.html')
 
 
-@app.route('/portfolio')
+@main.route('/portfolio')
 def portfolio():
     return render_template('portfolio.html')
 
 
-@app.route('/contact')
+@main.route('/contact')
 def contact():
     form = ContactForm()
     return render_template('contact.html')
 
 
-@app.route('/post/<blog_title>')
+@main.route('/post/<blog_title>')
 def post(blog_title):
     return render_template('post.html', blog_title=blog_title)
+
+
+@main.route('/login')
+def login():
+    form = PasswordForm()
+    if form.validate_on_submit():
+        return redirect(url_for('admin'))
+    return render_template('login.html')
+
+
+@main.route('/admin')
+@login_required
+def admin():
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Post(form.post.data)
+        db.session.add(post)
+        db.session.commit()
+        return redirect(url_for('blog'))
+    return render_template('admin.html')
