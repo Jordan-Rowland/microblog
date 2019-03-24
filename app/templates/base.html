@@ -11,23 +11,19 @@
             padding:0;
         }
 
-        .nav {
-            background-color: #001;
-            height: 65px;
-            color: white;
-            width: 100%;
-            margin: 0;
+        .navbar {
+            background-color: #2D2E32;
         }
 
-        .nav a{
-            margin: 30px;
+        .navbar a{
+            margin: 18px 90px;
             width: auto;
             color: white;
             text-decoration: none;
         }
 
         .header-img {
-            height: 700px;
+            height: 650px;
             width: 1707px;
             overflow: hidden;
         }
@@ -37,9 +33,24 @@
             height: auto;
         }
 
-        .content-area {
-            position: absolute;
+        .content {
             background: lightgrey;
+            padding: 85px;
+        }
+
+        .card {
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            margin-bottom: 15px;
+        }
+
+        #services {
+            margin-top: 25px;
+        }
+
+        .services-card {
+            border-radius: 5px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+
         }
 
     </style>
@@ -47,7 +58,7 @@
 </head>
 <body>
 
-<nav class="nav">
+<nav class="navbar">
 <a href="{{ url_for('.about') }}">About</a>
 <a href="{{ url_for('.blog') }}">Blog</a>
 <a href="{{ url_for('.portfolio') }}">Portfolio</a>
