@@ -10,7 +10,10 @@ from ..models import Post
 
 @main.route('/')
 def index():
-    return render_template('index.html')
+    form = ContactForm()
+    return render_template(
+        'index.html',
+        form=form,)
 
 
 @main.route('/about')

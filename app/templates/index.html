@@ -133,6 +133,30 @@
 </div>
 </div>
 
+<div class="card">
+  <div class="card-header">
+    <div class="card-title h5">FakeBook</div>
+    <div class="card-subtitle text-gray">A Full-Stack Social Media Clone</div>
+  </div>
+  <div class="card-image">
+    <img src="{{ url_for('static', filename='img/Screenshot 2019-03-25 at 8.37.26 PM.png') }}" class="img-responsive">
+  </div>
+  <div class="card-body">
+    Follow users, post to your timeline, update your profile and more. A fully functional social media clone made with Flask for Python and Materialize CSS.
+  </div>
+    <div class="card-footer">
+  <a href="http://fakebook-flask.herokuapp.com/">
+    <button class="demo-btn btn btn-primary">
+      Demo
+    </button>
+  </a>
+  <a href="https://github.com/Jordan-Rowland/fakebook-flask">
+    <button class="btn btn-primary">
+      GitHub
+    </button>
+  </a>
+  </div>
+</div>
 
 </section>
 
@@ -157,6 +181,22 @@
 </div>
 </div>
 
+<div class="contact-card card">
+<div class="columns">
+<div class="column">
+  <form method="post">
+{{ form.hidden_tag() }}
+{{ form.name(class="contact-element", placeholder="Your Name", size="45") }}
+{{ form.email(class="contact-element", placeholder="Your Email", size="45") }}
+{{ form.subject(class="contact-element", placeholder="Subject", size="45") }}
+{{ form.message(class="contact-element", placeholder="Message", rows="10", cols="48") }}
+{{ form.submit(class="contact-element contact-button") }}
+  </form>
+</div>
+  <div class="divider-vert"></div>
+  <div class="column"></div>
+</div>
+</div>
 
 </section>
 
