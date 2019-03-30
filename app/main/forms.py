@@ -10,10 +10,17 @@ class PostForm(FlaskForm):
 
 
 class ContactForm(FlaskForm):
-    name = StringField('Your name', validators=[DataRequired()])
-    email = StringField('Your email', validators=[Email(), DataRequired()])
-    subject = StringField('Subject', validators=[DataRequired()])
-    message = TextAreaField('Message', validators=[DataRequired()])
+    name = StringField('Your name', validators=[
+        DataRequired()])
+    email = StringField('Your email', validators=[
+        Email(), DataRequired()])
+    subject = StringField('Subject', validators=[
+        DataRequired()])
+    message = TextAreaField('Message', validators=[
+        Length(min=20, max=1500,
+        message="Sorry your message might be too short. \
+        Please add more text and try again."),
+        DataRequired()])
     submit = SubmitField('Submit')
 
 

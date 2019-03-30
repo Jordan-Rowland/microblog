@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="header-img">
-<img src="{{ url_for('static', filename='img/photo-1489875347897-49f64b51c1f8.jpeg') }}">
+<img src="{{ url_for('static', filename='img/photo-1498050108023-c5249f4df085.jpeg') }}">
 </div>
 <div class="content">
 <div class="container grid-lg">
@@ -146,12 +146,12 @@
   </div>
     <div class="card-footer">
   <a href="http://fakebook-flask.herokuapp.com/">
-    <button class="demo-btn btn btn-primary">
+    <button class="custom-button">
       Demo
     </button>
   </a>
   <a href="https://github.com/Jordan-Rowland/fakebook-flask">
-    <button class="btn btn-primary">
+    <button class="custom-button">
       GitHub
     </button>
   </a>
@@ -168,37 +168,51 @@
 <div class="underline"></div>
 </div>
 </div>
-
-
 </section>
-
-
-<section>
-<div class="section-head">
-<div id="contact">
-<h1 class="text-center">Contact</h1>
-<div class="underline"></div>
 </div>
-</div>
+
+<section class="contact">
+  {# <img class="contact-background-image" src="{{ url_for('static', filename='img/photo-1514428631868-a400b561ff44.jpeg') }}"> #}
+<div class="container grid-lg">
 
 <div class="contact-card card">
-<div class="columns">
-<div class="column">
-  <form method="post">
-{{ form.hidden_tag() }}
-{{ form.name(class="contact-element", placeholder="Your Name", size="45") }}
-{{ form.email(class="contact-element", placeholder="Your Email", size="45") }}
-{{ form.subject(class="contact-element", placeholder="Subject", size="45") }}
-{{ form.message(class="contact-element", placeholder="Message", rows="10", cols="48") }}
-{{ form.submit(class="contact-element contact-button") }}
-  </form>
-</div>
-  <div class="divider-vert"></div>
-  <div class="column"></div>
-</div>
-</div>
+    <div class="card-title h3 text-center contact-header">Contact me</div>
 
+<div class="columns">
+  <div class="column">
+    <br>
+    <div class="contact-text-item">
+    <p>
+    For questions comments, quotes, or suggestions about my portfolio or blog, please feel free to contact me. I usually respond withina few hours.
+    </p>
+    <br>
+  <p><i class="contact-icon contact-icon-text fas fa-globe"></i>
+<strong>
+  Los Angeles, California</p>
+</strong>
+  <p><i class="contact-icon contact-icon-text fas fa-envelope-open-text"></i><strong>
+    JordanRowland00@gmail.com</p>
+  </strong>
+    </div>
+  </div>
+  <div class="divider-vert"></div>
+<div class="column">
+  <div class="contact-form">
+    <form method="post">
+  {{ form.hidden_tag() }}
+  {{ form.name(class="contact-element", placeholder="Your Name", size="44%") }}
+  {{ form.email(class="contact-element", placeholder="Your Email", size="44%") }}
+  {{ form.subject(class="contact-element", placeholder="Subject", size="44%") }}
+  {{ form.message(class="contact-element", placeholder="Message", rows="10", cols="47%") }}
+  {{ form.submit(class="contact-element custom-button contact-button") }}
+    </form>
+  </div>
+</div>
+</div>
+</div>
+</div>
 </section>
+
 
 
 {% endblock %}
