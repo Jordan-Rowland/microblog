@@ -28,14 +28,14 @@
       </p>
     </div>
   </div>
-      {# <div class="column col-sm-6">
-
-      </div> #}
+      {# <div class="column col-sm-6"></div> #}
     </div>
 </div>
 </div>
 </section>
+</div>
 
+<div class="container grid-lg">
 <section>
   <div class="section-head">
 
@@ -123,8 +123,9 @@
 </div>
 </div>
 </section>
+</div>
 
-
+<div class="container grid-lg">
 <section>
 <div class="section-head">
 <div id="portfolio">
@@ -157,10 +158,10 @@
   </a>
   </div>
 </div>
-
 </section>
+</div>
 
-
+<div class="container grid-lg">
 <section>
 <div class="section-head">
 <div id="blog">
@@ -170,16 +171,15 @@
 </div>
 </section>
 </div>
-
-<section class="contact">
-  {# <img class="contact-background-image" src="{{ url_for('static', filename='img/photo-1514428631868-a400b561ff44.jpeg') }}"> #}
 <div class="container grid-lg">
-
+<section>
+  <div class="contact-background">
+    <img src="">
+  </div>
 <div class="contact-card card">
     <div class="card-title h3 text-center contact-header">Contact me</div>
-
 <div class="columns">
-  <div class="column">
+  <div class="column col-md-12">
     <br>
     <div class="contact-text-item">
     <p>
@@ -187,16 +187,19 @@
     </p>
     <br>
   <p><i class="contact-icon contact-icon-text fas fa-globe"></i>
-<strong>
-  Los Angeles, California</p>
-</strong>
-  <p><i class="contact-icon contact-icon-text fas fa-envelope-open-text"></i><strong>
-    JordanRowland00@gmail.com</p>
+  <strong>
+  Los Angeles, California
   </strong>
+  </p>
+  <p><i class="contact-icon contact-icon-text fas fa-envelope-open-text"></i>
+    <strong>
+    JordanRowland00@gmail.com
+  </strong>
+  </p>
     </div>
   </div>
-  <div class="divider-vert"></div>
-<div class="column">
+  <div class="hide-md divider-vert"></div>
+<div class="column col-md-12">
   <div class="contact-form">
     <form method="post">
   {{ form.hidden_tag() }}
@@ -210,9 +213,8 @@
 </div>
 </div>
 </div>
-</div>
 </section>
-
-
+</div>
+</div>
 
 {% endblock %}
