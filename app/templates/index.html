@@ -1,7 +1,17 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="header-img">
+<div class="header-img" id="home">
+  <nav class="nav">
+  <ul>
+    <li class="nav-item"><a class="nav-home" href="#home">Home</a></li>
+    <li class="nav-item"><a href="#about">About</a></li>
+    <li class="nav-item"><a href="#services">Services</a></li>
+    <li class="nav-item"><a href="#portfolio">Portfolio</a></li>
+    <li class="nav-item"><a href="#blog">Blog</a></li>
+    <li class="nav-item"><a href="#contact">Contact</a></li>
+  </ul>
+  </nav>
 </div>
 <div class="content">
 <div class="container grid-lg">
@@ -208,6 +218,7 @@
   {{ form.email(class="contact-element", placeholder="Your Email", size="44%") }}
   {{ form.subject(class="contact-element", placeholder="Subject", size="44%") }}
   {{ form.message(class="contact-element", placeholder="Message", rows="10", cols="47%") }}
+  <br>
   {{ form.submit(class="contact-element custom-button contact-button") }}
     </form>
   </div>

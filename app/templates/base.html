@@ -12,22 +12,25 @@
             padding:0;
         }
 
-        .navbar {
-            background-color: #2D2E32;
+        .nav {
+            position: relative;
+            float: right;
+            margin-right: 15px;
         }
 
-        .navbar a{
-            margin: 18px 90px;
-            width: auto;
-            color: white;
-            text-decoration: none;
+        .nav-item {
+            display: inline;
+        }
+
+        ul > li > a {
+            -webkit-text-fill-color: white;
+            font-weight: 500;
         }
 
         .header-img {
-            background-image: url('{{ url_for('static', filename='img/header_img_7.jpeg') }}');
+            /*background-image: url('{{ url_for('static', filename='img/header_img_5.jpeg') }}');*/
+            background-image: url('{{ url_for('static', filename='img/cabin1.jpeg') }}');
             height: 750px;
-            /*width: 1707px;*/
-            /*overflow: hidden;*/
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-position: bottom;
@@ -70,6 +73,7 @@
 
         i {
             color: #1C96C5;
+            filter: saturate(50%);
             font-size: 2.5rem;
             margin: 20px;
         }
@@ -79,12 +83,14 @@
             width: 85px;
             height: 4px;
             background-color: #1C96C5;
+            filter: saturate(50%);
             margin: auto;
             margin-top: -20px;
         }
 
         .custom-button {
             background-color: #1C96C5;
+            filter: saturate(50%);
             color: white;
             border: none;
             height: 36px;
@@ -95,6 +101,7 @@
         .contact-icon {
             margin: -5px 5px -5px 10px;
             color: #1C96C5;
+            filter: saturate(50%);
             font-size: .9rem
         }
 
@@ -125,17 +132,30 @@
             position: absolute;
             margin-top: -100px;
             left: 0px;
-            height: 120%;
+            height: 125%;
             width: 100%;
             background-image: url('{{ url_for('static', filename='img/forest.jpeg') }}');
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-position: top;
             background-size: cover;
+            filter: saturate(50%);
         }
 
         #contact {
             margin-top: 250px;
+        }
+
+        .footer {
+            position: absolute;
+            background-color: #1C96C5;
+            filter: saturate(50%);
+            height: 130px;
+            width: 100%;
+            text-align: center;
+            color: white;
+            padding: 45px;
+            filter: saturate(50%);
         }
 
     </style>
@@ -152,6 +172,13 @@
 
 {% block content %}
 {% endblock %}
+
+<footer class="footer">
+    <strong>
+        &copy; Copyright Jordan Rowland 2019
+    </strong>
+    <p>All rights reserved.</p>
+</footer>
 
 </body>
 </html>
