@@ -12,6 +12,7 @@
     <li class="nav-item"><a href="#contact">Contact</a></li>
   </ul>
   </nav>
+  <h1 class="head-text">Lexicon Designs</h1>
 </div>
 <div class="content">
 <div class="container grid-lg">
@@ -214,12 +215,12 @@
   <div class="contact-form">
     <form method="post">
   {{ form.hidden_tag() }}
-  {{ form.name(class="contact-element", placeholder="Your Name", size="44%") }}
-  {{ form.email(class="contact-element", placeholder="Your Email", size="44%") }}
-  {{ form.subject(class="contact-element", placeholder="Subject", size="44%") }}
-  {{ form.message(class="contact-element", placeholder="Message", rows="10", cols="47%") }}
+  {{ form.name(class="contact-element", placeholder="Your Name") }}
+  {{ form.email(class="contact-element", placeholder="Your Email") }}
+  {{ form.subject(class="contact-element", placeholder="Subject") }}
+  {{ form.message(class="contact-element contact-message", placeholder="Message") }}
   <br>
-  {{ form.submit(class="contact-element custom-button contact-button") }}
+  {{ form.submit(class="custom-button contact-button") }}
     </form>
   </div>
 </div>

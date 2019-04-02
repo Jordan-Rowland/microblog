@@ -30,7 +30,8 @@
         .header-img {
             /*background-image: url('{{ url_for('static', filename='img/header_img_5.jpeg') }}');*/
             background-image: url('{{ url_for('static', filename='img/cabin1.jpeg') }}');
-            height: 750px;
+            /*height: 750px;*/
+            height: 100vh;
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-position: bottom;
@@ -41,6 +42,15 @@
             width: 100%;
             height: auto;
             margin-top: -350px;
+        }
+
+        .head-text {
+            color: white;
+            font-weight: 600;
+            position: relative;
+            top: 40vh;
+            left: 41vw;
+
         }
 
         .content {
@@ -55,6 +65,7 @@
         .card {
             box-shadow: 0 3px 5px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
             margin-bottom: 15px;
+            border-radius: 4px;
         }
 
         .contact-card {
@@ -62,7 +73,19 @@
         }
 
         .contact-element {
-            margin:5px;
+            margin: 5px 0;
+            border: 0px;
+            border-bottom: 1px solid #dcdcdc;
+            position: relative;
+            width: 100%;
+
+        }
+
+        .contact-message {
+            border-radius: 5px;
+            border: 1px solid #dcdcdc;
+            height: 241.5px;
+            resize: none;
         }
 
         .services-card {

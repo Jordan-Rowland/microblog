@@ -16,9 +16,9 @@ def index():
         form=form,)
 
 
-@main.route('/about')
-def about():
-    return render_template('about.html')
+# @main.route('/about')
+# def about():
+#     return render_template('about.html')
 
 
 @main.route('/blog')
@@ -31,10 +31,10 @@ def portfolio():
     return render_template('portfolio.html')
 
 
-@main.route('/contact')
-def contact():
-    form = ContactForm()
-    return render_template('contact.html')
+# @main.route('/contact')
+# def contact():
+#     form = ContactForm()
+#     return render_template('contact.html')
 
 
 @main.route('/post/<blog_title>')
