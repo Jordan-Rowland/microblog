@@ -10,8 +10,8 @@ class Config:
         ['true', 'on', '1']
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
-    # FAKEBOOK_MAIL_SENDER_PREFIX = '[FAKEBOOK]'
-    # FAKEBOOK_MAIL_SENDER = 'FakeBook Admin <BionicPythonic@gmail.com>'
+    MAIL_SENDER_PREFIX = '[MICROBLOG]'
+    MAIL_SENDER = 'Portfolio Message <BionicPythonic@gmail.com>'
     # FAKEBOOK_ADMIN = os.environ.get('FAKEBOOK_ADMIN')
     # FAKEBOOK_POSTS_PER_PAGE = 10
     # FAKEBOOK_COMMENTS_PER_PAGE = 10

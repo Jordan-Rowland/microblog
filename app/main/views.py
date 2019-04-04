@@ -5,6 +5,7 @@ from . import main
 from .forms import ContactForm, PasswordForm, PasswordForm
 
 from .. import db
+from ..email import send_email
 from ..models import Post
 
 
@@ -12,6 +13,16 @@ from ..models import Post
 def index():
     form = ContactForm()
     if form.validate_on_submit():
+        name = form.name.data
+        email = form.email.data
+        subject = form.subject.data
+        msg = form.message.data
+        send_email(
+            to='JordanRowland00@gmail.com',
+            subject=f'New message from {name} - {email}',
+            msg=msg,
+            template='email')
+        flash('Message Sent!')
         return redirect(url_for('main.index'))
     return render_template(
         'index.html',
