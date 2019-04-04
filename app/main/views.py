@@ -8,33 +8,19 @@ from .. import db
 from ..models import Post
 
 
-@main.route('/')
+@main.route('/', methods=['GET', 'POST'])
 def index():
     form = ContactForm()
+    if form.validate_on_submit():
+        return redirect(url_for('main.index'))
     return render_template(
         'index.html',
         form=form,)
 
 
-# @main.route('/about')
-# def about():
-#     return render_template('about.html')
-
-
 @main.route('/blog')
 def blog():
     return render_template('blog.html')
-
-
-@main.route('/portfolio')
-def portfolio():
-    return render_template('portfolio.html')
-
-
-# @main.route('/contact')
-# def contact():
-#     form = ContactForm()
-#     return render_template('contact.html')
 
 
 @main.route('/post/<blog_title>')
@@ -50,7 +36,7 @@ def login():
     return render_template('login.html')
 
 
-@main.route('/admin')
+@main.route('/admin', methods=['GET', 'POST'])
 @login_required
 def admin():
     form = PostForm()

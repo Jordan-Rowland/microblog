@@ -171,7 +171,7 @@
 </section>
 </div>
 
-<div class="container grid-lg">
+{# <div class="container grid-lg">
 <section>
 <div class="section-head">
 <div id="blog">
@@ -181,13 +181,12 @@
 </div>
 
 </section>
-</div>
+</div> #}
 
 
 <section id="contact">
 <div class="container grid-lg">
-  <div class="contact-background">
-  </div>
+  <div class="contact-background"></div>
 <div class="contact-card card">
     <div class="card-title h3 text-center contact-header">Contact me</div>
 <div class="columns">
@@ -218,9 +217,10 @@
   {{ form.name(class="contact-element", placeholder="Your Name") }}
   {{ form.email(class="contact-element", placeholder="Your Email") }}
   {{ form.subject(class="contact-element", placeholder="Subject") }}
-  {{ form.message(class="contact-element contact-message", placeholder="Message") }}
+  {{ form.message(class="contact-element contact-message", placeholder=form.message.label.text) }}
   <br>
-  {{ form.submit(class="custom-button contact-button") }}
+  {{ form.submit(class="custom-button contact-button", disabled=True) }}
+  <span class="number-count"></span>
     </form>
   </div>
 </div>

@@ -88,6 +88,18 @@
             resize: none;
         }
 
+        .number-count {
+            float: right;
+            margin-right: 15px;
+            margin-top: 12px;
+            color: grey;
+
+        }
+
+        .number-count-red {
+            color: red;
+        }
+
         .services-card {
             border-radius: 7.5px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
@@ -151,6 +163,11 @@
             margin-top: 100px;
         }
 
+        .disabled-button {
+            filter: saturate(25%);
+            color: grey;
+        }
+
         .contact-background {
             position: absolute;
             margin-top: -100px;
@@ -204,4 +221,27 @@
 </footer>
 
 </body>
+
+    <script type="text/javascript">
+let count = document.querySelector('.number-count');
+let msg_box = document.querySelector('.contact-message');
+let submit_btn = document.querySelector('.contact-button');
+
+msg_box.addEventListener('input', () => {
+    count.innerText = msg_box.textLength;
+    if (count.innerText == 0) {
+        count.innerText = '';
+        submit_btn.classList = 'custom-button contact-button';
+    } else if (count.innerText >= 1500 || count.innerText <= 20) {
+        count.classList.add('number-count-red');
+        submit_btn.classList.add('disabled-button');
+        submit_btn.setAttribute('disabled', 'disabled');
+    } else {
+        submit_btn.classList = 'custom-button contact-button';
+        submit_btn.removeAttribute('disabled');
+        count.classList = 'number-count';
+    }
+});
+    </script>
+
 </html>

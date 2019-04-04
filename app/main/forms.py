@@ -16,10 +16,8 @@ class ContactForm(FlaskForm):
         Email(), DataRequired()])
     subject = StringField('Subject', validators=[
         DataRequired()])
-    message = TextAreaField('Message', validators=[
-        Length(min=20, max=1500,
-        message="Sorry your message might be too short. \
-        Please add more text and try again."),
+    message = TextAreaField('Leave me a message between 20 and 1500 characters', validators=[
+        Length(min=20, max=1500),
         DataRequired()])
     submit = SubmitField('Submit')
 
