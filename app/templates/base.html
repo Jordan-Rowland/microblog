@@ -3,7 +3,7 @@
 <head>
 <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
 <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
-{# <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css"> #}
+<link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style type="text/css">
@@ -24,11 +24,16 @@
             display: none;
         }
 
+        .nav-small-menu {
+            visibility: hidden;
+            display: none;
+        }
+
         .nav-item {
             display: inline;
         }
 
-        ul > li > a {
+        .nav ul > li > a {
             -webkit-text-fill-color: white;
             font-weight: 500;
         }
@@ -58,7 +63,7 @@
 
         .content {
             background: #F6F7F8;
-            padding: 85px;
+            padding: 85px 25px;
         }
 
         .section-head {
@@ -110,8 +115,7 @@
         }
 
         i {
-            color: #1C96C5;
-            filter: saturate(50%);
+            color: #4E8BA2;
             font-size: 2.5rem;
             margin: 20px;
         }
@@ -120,15 +124,13 @@
             position: relative;
             width: 85px;
             height: 4px;
-            background-color: #1C96C5;
-            filter: saturate(50%);
+            background-color: #4E8BA2;
             margin: auto;
             margin-top: -20px;
         }
 
         .custom-button {
-            background-color: #1C96C5;
-            filter: saturate(50%);
+            background-color: #4E8BA2;
             color: white;
             border: none;
             height: 36px;
@@ -138,8 +140,7 @@
 
         .contact-icon {
             margin: -5px 5px -5px 10px;
-            color: #1C96C5;
-            filter: saturate(50%);
+            color: #4E8BA2;
             font-size: .9rem
         }
 
@@ -175,30 +176,30 @@
             position: absolute;
             margin-top: -100px;
             left: 0px;
-            height: 125%;
+            height: 100%;
             width: 100%;
             background-image: url('{{ url_for('static', filename='img/forest.jpeg') }}');
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-position: top;
             background-size: cover;
-            filter: saturate(50%);
         }
 
+        /* Change size of margin-top to 250 for #contact when inserting blog section */
+
         #contact {
-            margin-top: 250px;
+
+            margin-top: 150px;
         }
 
         .footer {
             position: absolute;
-            background-color: #1C96C5;
-            filter: saturate(50%);
+            background-color: #4E8BA2;
             height: 130px;
             width: 100%;
             text-align: center;
             color: white;
             padding: 45px;
-            filter: saturate(50%);
         }
 
 /* MEDIA QUERIES */
@@ -216,16 +217,39 @@
             visibility: visible;
             position: fixed;
             z-index: 1;
-            color: #1C96C5;
+            color: #4E8BA2;
             font-size: 2em;
+            rotate: 90;
+        }
+
+        .nav-small-menu {
+            z-index: 1;
+            position: fixed;
+            visibility: visible;
+            display: inline;
+            top: 50px;
+            visibility: hidden;
+            transition: visibility 1ms;
+        }
+
+        .nav-small-menu ul > li > a {
+            -webkit-text-fill-color: black;
+            background-color: #F6F7F8;
+            padding: 3px;
+            border-radius: 30px
+        }
+
+        ul {
+            list-style-type: none;
+            padding-right: 15px;
         }
 
         .head-text {
-            color:blue;
+            color: blue;
         }
 
         .contact-background {
-            height: 150%;
+            height: 125%;
         }
 
         p {
@@ -264,6 +288,8 @@
 let count = document.querySelector('.number-count');
 let msg_box = document.querySelector('.contact-message');
 let submit_btn = document.querySelector('.contact-button');
+let small_nav_btn = document.querySelector('.nav-small')
+let small_nav = document.querySelector('.nav-small-menu')
 
 msg_box.addEventListener('input', () => {
     count.innerText = msg_box.textLength;
@@ -280,6 +306,12 @@ msg_box.addEventListener('input', () => {
         count.classList = 'number-count';
     }
 });
+
+small_nav_btn.addEventListener('click', () => {
+    small_nav.style.visibility = small_nav.style.visibility === 'visible' ? 'hidden' : 'visible';
+
+
+})
     </script>
 
 </html>
