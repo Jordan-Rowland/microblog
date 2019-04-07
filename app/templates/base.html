@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
 {# <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css"> #}
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style type="text/css">
 
         html, body {
@@ -18,6 +19,11 @@
             margin-right: 15px;
         }
 
+        .nav-small {
+            visibility: hidden;
+            display: none;
+        }
+
         .nav-item {
             display: inline;
         }
@@ -28,9 +34,7 @@
         }
 
         .header-img {
-            /*background-image: url('{{ url_for('static', filename='img/header_img_5.jpeg') }}');*/
-            background-image: url('{{ url_for('static', filename='img/cabin1.jpeg') }}');
-            /*height: 750px;*/
+            background-image: url('{{ url_for('static', filename='img/cabin1-Edited.jpg') }}');
             height: 100vh;
             background-repeat: no-repeat;
             background-attachment: fixed;
@@ -46,11 +50,10 @@
 
         .head-text {
             color: white;
-            font-weight: 600;
             position: relative;
-            top: 40vh;
-            left: 41vw;
-
+            font-weight: 600;
+            text-align: center;
+            padding-top: 350px;
         }
 
         .content {
@@ -197,6 +200,41 @@
             padding: 45px;
             filter: saturate(50%);
         }
+
+/* MEDIA QUERIES */
+
+    @media only screen and (max-width: 850px) {
+        .nav {
+            visibility: hidden;
+        }
+
+        .nav-small {
+            display: block;
+        }
+
+        .nav-small i {
+            visibility: visible;
+            position: fixed;
+            z-index: 1;
+            color: #1C96C5;
+            font-size: 2em;
+        }
+
+        .head-text {
+            color:blue;
+        }
+
+        .contact-background {
+            height: 150%;
+        }
+
+        p {
+            font-weight: 800;
+        }
+
+}
+
+
 
     </style>
     <title></title>
