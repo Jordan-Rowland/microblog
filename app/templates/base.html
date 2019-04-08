@@ -13,13 +13,14 @@
             padding:0;
         }
 
-        .nav {
+        /*.nav {
+            position: fixed;
             position: relative;
             float: right;
             margin-right: 15px;
-        }
+        }*/
 
-        .nav-small {
+/*        .nav-small {
             visibility: hidden;
             display: none;
         }
@@ -27,15 +28,37 @@
         .nav-small-menu {
             visibility: hidden;
             display: none;
+        }*/
+
+        .sticky-nav ul > li > a {
+            /*-webkit-text-fill-color: white;*/
+            /*position: relative;*/
+            position: relative;
+            z-index: 1;
+            font-weight: 500;
+            margin: 15px;
+        }
+
+        a:visited {
+            color: black;
+        }
+
+        .sticky-nav {
+            -webkit-text-fill-color: black;
+            position: fixed;
+            height: 70px;
+            width: 100%;
+            background-color: white;
         }
 
         .nav-item {
             display: inline;
         }
 
-        .nav ul > li > a {
-            -webkit-text-fill-color: white;
-            font-weight: 500;
+        .sticky-nav ul {
+            float: right;
+            padding: 5px;
+
         }
 
         .header-img {
@@ -55,7 +78,6 @@
 
         .head-text {
             color: white;
-            position: relative;
             font-weight: 600;
             text-align: center;
             padding-top: 350px;
@@ -205,7 +227,7 @@
 /* MEDIA QUERIES */
 
     @media only screen and (max-width: 850px) {
-        .nav {
+       /* .nav {
             visibility: hidden;
         }
 
@@ -242,6 +264,15 @@
         ul {
             list-style-type: none;
             padding-right: 15px;
+        }*/
+
+
+        .sticky-nav ul > li > a {
+            /*-webkit-text-fill-color: white;*/
+            /*position: relative;*/
+            float:none;
+            margin: 5px;
+            text-align: center;
         }
 
         .head-text {
@@ -249,7 +280,7 @@
         }
 
         .contact-background {
-            height: 125%;
+            height: 131%;
         }
 
         p {
