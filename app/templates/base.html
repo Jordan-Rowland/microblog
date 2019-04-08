@@ -13,60 +13,49 @@
             padding:0;
         }
 
-        /*.nav {
-            position: fixed;
+        .nav ul > li > a {
             position: relative;
-            float: right;
-            margin-right: 15px;
-        }*/
-
-/*        .nav-small {
-            visibility: hidden;
-            display: none;
-        }
-
-        .nav-small-menu {
-            visibility: hidden;
-            display: none;
-        }*/
-
-        .sticky-nav ul > li > a {
-            /*-webkit-text-fill-color: white;*/
-            /*position: relative;*/
-            position: relative;
-            z-index: 1;
             font-weight: 500;
-            margin: 15px;
+            /*margin: 15px;*/
         }
 
         a:visited {
             color: black;
         }
 
-        .sticky-nav {
-            -webkit-text-fill-color: black;
-            position: fixed;
+        .nav {
+            display: flex;
+            -webkit-text-fill-color: white;
             height: 70px;
             width: 100%;
-            background-color: white;
+            float: right;
+            margin-top: 0;
+            transition: ease-out 0.5s;
+        }
+
+        .sticky {
+            position: fixed;
+            margin: 0;
+            z-index: 1;
+            background-color: #2C2E31;
+            transition: ease-in 0.5s;
         }
 
         .nav-item {
             display: inline;
         }
 
-        .sticky-nav ul {
+        .nav ul {
             float: right;
             padding: 5px;
-
         }
 
         .header-img {
-            background-image: url('{{ url_for('static', filename='img/cabin1-Edited.jpg') }}');
+            background-image: url('{{ url_for('static', filename='img/neonlight2.jpeg') }}');
             height: 100vh;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            background-position: bottom;
+            background-position: center;
             background-size: cover;
         }
 
@@ -227,47 +216,7 @@
 /* MEDIA QUERIES */
 
     @media only screen and (max-width: 850px) {
-       /* .nav {
-            visibility: hidden;
-        }
-
-        .nav-small {
-            display: block;
-        }
-
-        .nav-small i {
-            visibility: visible;
-            position: fixed;
-            z-index: 1;
-            color: #4E8BA2;
-            font-size: 2em;
-            rotate: 90;
-        }
-
-        .nav-small-menu {
-            z-index: 1;
-            position: fixed;
-            visibility: visible;
-            display: inline;
-            top: 50px;
-            visibility: hidden;
-            transition: visibility 1ms;
-        }
-
-        .nav-small-menu ul > li > a {
-            -webkit-text-fill-color: black;
-            background-color: #F6F7F8;
-            padding: 3px;
-            border-radius: 30px
-        }
-
-        ul {
-            list-style-type: none;
-            padding-right: 15px;
-        }*/
-
-
-        .sticky-nav ul > li > a {
+              .nav ul > li > a {
             /*-webkit-text-fill-color: white;*/
             /*position: relative;*/
             float:none;
@@ -319,8 +268,7 @@
 let count = document.querySelector('.number-count');
 let msg_box = document.querySelector('.contact-message');
 let submit_btn = document.querySelector('.contact-button');
-let small_nav_btn = document.querySelector('.nav-small')
-let small_nav = document.querySelector('.nav-small-menu')
+let nav = document.querySelector('nav')
 
 msg_box.addEventListener('input', () => {
     count.innerText = msg_box.textLength;
@@ -338,11 +286,20 @@ msg_box.addEventListener('input', () => {
     }
 });
 
-small_nav_btn.addEventListener('click', () => {
-    small_nav.style.visibility = small_nav.style.visibility === 'visible' ? 'hidden' : 'visible';
+sticky = nav.offsetTop;
+
+window.onscroll = () => {
+    if (window.pageYOffset >= 3) {
+        nav.classList.add("sticky")
+    } else {
+        nav.classList.remove("sticky");
+    }
+}
+
+// window.onscroll()
 
 
-})
+
     </script>
 
 </html>
