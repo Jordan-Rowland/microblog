@@ -11,22 +11,56 @@ from ..models import Post
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
-    form = ContactForm()
-    if form.validate_on_submit():
-        name = form.name.data
-        email = form.email.data
-        subject = form.subject.data
-        msg = form.message.data
+    # form = ContactForm()
+    # if form.validate_on_submit():
+    #     name = form.name.data
+    #     email = form.email.data
+    #     subject = form.subject.data
+    #     msg = form.message.data
+        # send_email(
+        #     to='JordanRowland00@gmail.com',
+        #     subject=f'New message from {name} - {email}',
+        #     msg_body=msg,
+        #     template='email')
+        # flash('Message Sent!')
+        # return redirect(url_for('.index', _anchor="contact"))
+
+
+    data = request.get_json()
+    print(data)
+    if data:
         send_email(
             to='JordanRowland00@gmail.com',
-            subject=f'New message from {name} - {email}',
-            msg=msg,
-            template='email')
-        flash('Message Sent!')
-        return redirect(url_for('main.index'))
+            subject=f'New message from {data["name"]} - {data["email"]}',
+            msg_body=f'''
+            [SUBJECT]
+            {data["subject"]}
+
+            [MESSAGE]
+            {data["message"]}
+            ''',
+            template='email'
+            )
+
     return render_template(
         'index.html',
-        form=form,)
+        )
+
+
+@main.route('/email')
+def email():
+    print(
+    request.get_json()
+        )
+    send_email(
+        to='JordanRowland00@gmail.com',
+        subject=f'New message from {name} - {email}',
+        msg_body=msg,
+        template='email'
+        )
+
+
+
 
 
 @main.route('/blog')

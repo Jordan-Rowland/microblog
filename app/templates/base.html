@@ -16,6 +16,7 @@
         .nav ul > li > a {
             position: relative;
             font-weight: 500;
+            -webkit-text-fill-color: white;
         }
 
         a:visited {
@@ -23,7 +24,6 @@
         }
 
         .nav {
-            -webkit-text-fill-color: white;
             height: 70px;
             width: 100%;
             margin-top: 0;
@@ -198,7 +198,6 @@
         /* Change size of margin-top to 250 for #contact when inserting blog section */
 
         #contact {
-
             margin-top: 150px;
         }
 
@@ -264,26 +263,68 @@
 </body>
 
     <script type="text/javascript">
-let count = document.querySelector('.number-count');
-let msg_box = document.querySelector('.contact-message');
-let submit_btn = document.querySelector('.contact-button');
+// let count = document.querySelector('.number-count');
+// let msg_box = document.querySelector('.contact-message');
+// let submit_btn = document.querySelector('.contact-button');
 let nav = document.querySelector('nav')
 
-msg_box.addEventListener('input', () => {
-    count.innerText = msg_box.textLength;
-    if (count.innerText == 0) {
-        count.innerText = '';
-        submit_btn.classList = 'custom-button contact-button';
-    } else if (count.innerText >= 1500 || count.innerText <= 20) {
-        count.classList.add('number-count-red');
-        submit_btn.classList.add('disabled-button');
-        submit_btn.setAttribute('disabled', 'disabled');
-    } else {
-        submit_btn.classList = 'custom-button contact-button';
-        submit_btn.removeAttribute('disabled');
-        count.classList = 'number-count';
-    }
+// msg_box.addEventListener('input', () => {
+//     count.innerText = msg_box.textLength;
+//     if (count.innerText == 0) {
+//         count.innerText = '';
+//         submit_btn.classList = 'custom-button contact-button';
+//     } else if (count.innerText >= 1500 || count.innerText <= 20) {
+//         count.classList.add('number-count-red');
+//         submit_btn.classList.add('disabled-button');
+//         submit_btn.setAttribute('disabled', 'disabled');
+//     } else {
+//         submit_btn.classList = 'custom-button contact-button';
+//         submit_btn.removeAttribute('disabled');
+//         count.classList = 'number-count';
+//     }
+// });
+
+
+
+let submit_btn = document.querySelector('.contact-button');
+let inputform = document.querySelector('#inputform');
+
+submit_btn.addEventListener('click', function() {
+    form = document.querySelector('form').elements;
+
+    form_name = form['name'].value;
+    form_email = form['email'].value;
+    form_subject = form['subject'].value;
+    form_message = form['message'].value;
+
+
+    data = JSON.stringify({
+        name: form_name,
+        email: form_email,
+        subject: form_subject,
+        message: form_message
+    })
+
+
+    fetch('/', {
+    method: "POST",
+    headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+    },
+    body: data
+    })
+    .then(res => JSON.stringify(res.json()))
+    .catch(err => console.log(err))
+
+    form['name'].value = ''
+    form['email'].value = ''
+    form['subject'].value = ''
+    form['message'].value = ''
+
 });
+
+
 
 sticky = nav.offsetTop;
 
@@ -296,6 +337,57 @@ window.onscroll = () => {
 }
 
 // window.onscroll()
+
+
+
+////////
+
+// document.getElementById('button').addEventListener('click', loadData);
+// let msg = document.querySelector('.message')
+
+// let i = 0
+// function loadData() {
+//     const xhr = new XMLHttpRequest();
+
+//     xhr.open('GET', 'https://jsonplaceholder.typicode.com/users', true);
+
+//     // console.log('READYSTATE', xhr.readyState);
+
+//     // Used for loading spinner
+//     // xhr.onprogress = () => {
+//     //     console.log('READYSTATE', xhr.readyState);
+//     // }
+
+//     xhr.onload = function() {
+//         let user = JSON.parse(this.responseText);
+//         let output = `
+//             <ul>
+//                 <li>${user[i].name}</li>
+//                 <li>${user[i].username}</li>
+//                 <li>${user[i].email}</li>
+//             </ul>
+//         `
+//         msg.innerHTML = output
+//         console.log(user[i].name);
+//         console.log(i);
+//         i+= 1
+//     }
+
+//     xhr.onreadystatechange = function() {
+//         if (this.status === 200 && this.readyState === 4) {
+//             // console.log(user[i].name);
+//         }
+//     }
+
+//     xhr.onerror = function() {
+//         console.log('Requesting error...')
+//     }
+
+//     xhr.send();
+// }
+
+////////
+
 
 
 

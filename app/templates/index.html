@@ -216,7 +216,7 @@
   <div class="hide-md divider-vert"></div>
 <div class="column col-md-12">
   <div class="contact-form">
-    <form method="post">
+    {# <form method="post" action="#">
   {{ form.hidden_tag() }}
   {{ form.name(class="contact-element", placeholder="Your Name") }}
   {{ form.email(class="contact-element", placeholder="Your Email") }}
@@ -225,7 +225,19 @@
   <br>
   {{ form.submit(class="custom-button contact-button", disabled=True) }}
   <span class="number-count"></span>
+    </form> #}
+
+  <form id="inputform">
+
+  <input type="text" name="name" class="contact-element", placeholder="Your Name">
+  <input type="text" name="email" class="contact-element", placeholder="Your Email">
+  <input type="text" name="subject" class="contact-element", placeholder="Subject">
+  <textarea name="message" class="contact-element contact-message", placeholder=""></textarea>
+  <br>
+  <span class="number-count"></span>
     </form>
+  <button type="submit" class="custom-button contact-button">Submit</button>
+
   </div>
 </div>
 </div>
