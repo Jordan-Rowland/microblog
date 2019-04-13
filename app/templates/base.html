@@ -2,8 +2,8 @@
 <html>
 <head>
 <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
-<link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
-<link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+{# <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css"> #}
+{# <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css"> #}
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style type="text/css">
@@ -13,18 +13,21 @@
             padding:0;
         }
 
-        .nav ul > li > a {
-            position: relative;
+        .nav a:focus {
+            box-shadow: none;
+        }
+
+        /*.nav ul > li > a {*/
+        .nav a {
             font-weight: 500;
             -webkit-text-fill-color: white;
-            border: none;
         }
 
         .anchor {
           position: relative;
         }
 
-        .anchor a {
+        .anchor a.scroll {
           position: absolute;
           top: -80px;
         }
@@ -65,7 +68,7 @@
         }
 
         .header-img {
-            background-image: url('{{ url_for('static', filename='img/city1.jpeg') }}');
+            background-image: url('{{ url_for('static', filename='img/city2.jpeg') }}');
             height: 100vh;
             background-repeat: no-repeat;
             background-attachment: fixed;
@@ -277,21 +280,19 @@
 </body>
 
 <script type="text/javascript">
-
 let count = document.querySelector('.number-count');
-let msg_box = document.querySelector('.contact-message');
 let submit_btn = document.querySelector('.contact-button');
-let nav = document.querySelector('nav')
+let nav = document.querySelector('nav');
 let inputform = document.querySelector('#inputform');
-let form = inputform.elements;
 
 
 document.addEventListener('input', () => {
+    let form = inputform.elements;
 
-    form_name = form['name'];
-    form_email = form['email'];
-    form_subject = form['subject'];
-    form_message = form['message'];
+    let form_name = form.name;
+    let form_email = form.email;
+    let form_subject = form.subject;
+    let form_message = form.message;
 
     count.innerText = form_message.textLength;
 
@@ -314,19 +315,19 @@ document.addEventListener('input', () => {
 
 
 submit_btn.addEventListener('click', () => {
-    form = inputform.elements;
+    let form = inputform.elements;
 
-    form_name = form['name'].value;
-    form_email = form['email'].value;
-    form_subject = form['subject'].value;
-    form_message = form['message'].value;
+    let form_name = form.name.value;
+    let form_email = form.email.value;
+    let form_subject = form.subject.value;
+    let form_message = form.message.value;
 
-    data = JSON.stringify({
+    let data = JSON.stringify({
         name: form_name,
         email: form_email,
         subject: form_subject,
         message: form_message
-    })
+    });
 
     fetch('/', {
     method: "POST",
@@ -337,12 +338,12 @@ submit_btn.addEventListener('click', () => {
     body: data
     })
     .then(res => JSON.stringify(res.json()))
-    .catch(err => console.log(err))
+    .catch(err => console.log(err));
 
-    form['name'].value = ''
-    form['email'].value = ''
-    form['subject'].value = ''
-    form['message'].value = ''
+    form.name.value = '';
+    form.email.value = '';
+    form.subject.value = '';
+    form.message.value = '';
     count.innerText = '';
     submit_btn.setAttribute('disabled', 'disabled');
 
@@ -350,8 +351,8 @@ submit_btn.addEventListener('click', () => {
 
 
 window.onscroll = () => {
-    if (window.pageYOffset >= 500) {
-        nav.classList.add("sticky")
+    if (window.pageYOffset >= 730) {
+        nav.classList.add("sticky");
     } else {
         nav.classList.remove("sticky");
     }
@@ -367,18 +368,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         });
     });
 });
-
-
-
-// document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-//     anchor.addEventListener('click', function (e) {
-//         e.preventDefault();
-
-//         document.querySelector(this.getAttribute('href')).scrollIntoView({
-//             behavior: 'smooth'
-//         });
-//     });
-// });
 
 </script>
 

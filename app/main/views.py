@@ -1,8 +1,8 @@
 from flask import flash, redirect, render_template, request, url_for
-from flask_login import login_required, current_user
+from flask_login import login_required#, current_user
 
 from . import main
-from .forms import ContactForm, PasswordForm, PasswordForm
+# from .forms import PasswordForm, PostForm
 
 from .. import db
 from ..email import send_email
@@ -39,7 +39,7 @@ def blog():
 
 
 @main.route('/post/<blog_title>')
-def post(blog_title):
+def blog_post(blog_title):
     return render_template('post.html', blog_title=blog_title)
 
 
