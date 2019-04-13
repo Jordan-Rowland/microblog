@@ -17,17 +17,31 @@
             position: relative;
             font-weight: 500;
             -webkit-text-fill-color: white;
+            border: none;
         }
 
-        a:visited {
-            color: black;
+        .anchor {
+          position: relative;
+        }
+
+        .anchor a {
+          position: absolute;
+          top: -80px;
+        }
+
+        .anchor #contact {
+          position: absolute;
+          top: -270px;
+        }
+
+        .contact {
+            margin-top: 190px;
         }
 
         .nav {
             height: 70px;
             width: 100%;
             margin-top: 0;
-            transition: ease-out 0.5s;
         }
 
         .sticky {
@@ -40,6 +54,7 @@
 
         .nav-item {
             display: inline;
+
         }
 
         .nav ul {
@@ -50,11 +65,11 @@
         }
 
         .header-img {
-            background-image: url('{{ url_for('static', filename='img/lights1.jpeg') }}');
+            background-image: url('{{ url_for('static', filename='img/city1.jpeg') }}');
             height: 100vh;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            background-position: top;
+            background-position: center;
             background-size: cover;
         }
 
@@ -66,9 +81,10 @@
 
         .head-text {
             color: white;
+            /*position: absolute;*/
             font-weight: 600;
             text-align: center;
-            padding-top: 350px;
+            padding-top: 300px;
         }
 
         .content {
@@ -236,8 +252,6 @@
 
 }
 
-
-
     </style>
     <title></title>
 </head>
@@ -262,41 +276,50 @@
 
 </body>
 
-    <script type="text/javascript">
-// let count = document.querySelector('.number-count');
-// let msg_box = document.querySelector('.contact-message');
-// let submit_btn = document.querySelector('.contact-button');
-let nav = document.querySelector('nav')
+<script type="text/javascript">
 
-// msg_box.addEventListener('input', () => {
-//     count.innerText = msg_box.textLength;
-//     if (count.innerText == 0) {
-//         count.innerText = '';
-//         submit_btn.classList = 'custom-button contact-button';
-//     } else if (count.innerText >= 1500 || count.innerText <= 20) {
-//         count.classList.add('number-count-red');
-//         submit_btn.classList.add('disabled-button');
-//         submit_btn.setAttribute('disabled', 'disabled');
-//     } else {
-//         submit_btn.classList = 'custom-button contact-button';
-//         submit_btn.removeAttribute('disabled');
-//         count.classList = 'number-count';
-//     }
-// });
-
-
-
+let count = document.querySelector('.number-count');
+let msg_box = document.querySelector('.contact-message');
 let submit_btn = document.querySelector('.contact-button');
+let nav = document.querySelector('nav')
 let inputform = document.querySelector('#inputform');
+let form = inputform.elements;
 
-submit_btn.addEventListener('click', function() {
-    form = document.querySelector('form').elements;
+
+document.addEventListener('input', () => {
+
+    form_name = form['name'];
+    form_email = form['email'];
+    form_subject = form['subject'];
+    form_message = form['message'];
+
+    count.innerText = form_message.textLength;
+
+    if (count.innerText == 0) {
+        count.innerText = '';
+        submit_btn.classList = 'custom-button contact-button';
+    } else if (count.innerText >= 1500 ||
+                count.innerText <= 20 ||
+                form_name.value == '' ||
+                form_email.value == '' ||
+                !form_email.value.includes('@') ||
+                form_subject.value == '') {
+        count.classList.add('number-count-red');
+        submit_btn.setAttribute('disabled', 'disabled');
+    } else {
+        submit_btn.removeAttribute('disabled');
+        count.classList = 'number-count';
+    }
+});
+
+
+submit_btn.addEventListener('click', () => {
+    form = inputform.elements;
 
     form_name = form['name'].value;
     form_email = form['email'].value;
     form_subject = form['subject'].value;
     form_message = form['message'].value;
-
 
     data = JSON.stringify({
         name: form_name,
@@ -304,7 +327,6 @@ submit_btn.addEventListener('click', function() {
         subject: form_subject,
         message: form_message
     })
-
 
     fetch('/', {
     method: "POST",
@@ -321,76 +343,43 @@ submit_btn.addEventListener('click', function() {
     form['email'].value = ''
     form['subject'].value = ''
     form['message'].value = ''
+    count.innerText = '';
+    submit_btn.setAttribute('disabled', 'disabled');
 
 });
 
 
-
-sticky = nav.offsetTop;
-
 window.onscroll = () => {
-    if (window.pageYOffset >= 3) {
+    if (window.pageYOffset >= 500) {
         nav.classList.add("sticky")
     } else {
         nav.classList.remove("sticky");
     }
-}
-
-// window.onscroll()
+};
 
 
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
 
-////////
-
-// document.getElementById('button').addEventListener('click', loadData);
-// let msg = document.querySelector('.message')
-
-// let i = 0
-// function loadData() {
-//     const xhr = new XMLHttpRequest();
-
-//     xhr.open('GET', 'https://jsonplaceholder.typicode.com/users', true);
-
-//     // console.log('READYSTATE', xhr.readyState);
-
-//     // Used for loading spinner
-//     // xhr.onprogress = () => {
-//     //     console.log('READYSTATE', xhr.readyState);
-//     // }
-
-//     xhr.onload = function() {
-//         let user = JSON.parse(this.responseText);
-//         let output = `
-//             <ul>
-//                 <li>${user[i].name}</li>
-//                 <li>${user[i].username}</li>
-//                 <li>${user[i].email}</li>
-//             </ul>
-//         `
-//         msg.innerHTML = output
-//         console.log(user[i].name);
-//         console.log(i);
-//         i+= 1
-//     }
-
-//     xhr.onreadystatechange = function() {
-//         if (this.status === 200 && this.readyState === 4) {
-//             // console.log(user[i].name);
-//         }
-//     }
-
-//     xhr.onerror = function() {
-//         console.log('Requesting error...')
-//     }
-
-//     xhr.send();
-// }
-
-////////
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
 
 
 
+// document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+//     anchor.addEventListener('click', function (e) {
+//         e.preventDefault();
 
-    </script>
+//         document.querySelector(this.getAttribute('href')).scrollIntoView({
+//             behavior: 'smooth'
+//         });
+//     });
+// });
+
+</script>
 
 </html>

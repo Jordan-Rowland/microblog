@@ -5,11 +5,11 @@
 
   <nav class="nav">
   <ul>
-    <li class="nav-item"><a class="nav-home" href="#home">Home</a></li>
-    <li class="nav-item"><a href="#about">About</a></li>
-    <li class="nav-item"><a href="#services">Services</a></li>
-    <li class="nav-item"><a href="#portfolio">Portfolio</a></li>
-    <li class="nav-item"><a href="#contact">Contact</a></li>
+    <li class="nav-item" id="home-btn"><a href="#home">Home</a></li>
+    <li class="nav-item" id="about-btn"><a href="#about">About</a></li>
+    <li class="nav-item" id="services-btn"><a href="#services">Services</a></li>
+    <li class="nav-item" id="portfolio-btn"><a href="#portfolio">Portfolio</a></li>
+    <li class="nav-item" id="contact-btn"><a href="#contact">Contact</a></li>
   </ul>
   </nav>
 
@@ -47,7 +47,8 @@
 </section>
 </div>
 
-<div id="services"></div>
+<div class="anchor" >
+  <a id="services"></a>
 <div class="container grid-lg">
 <section>
   <div class="section-head">
@@ -137,8 +138,10 @@
 </div>
 </section>
 </div>
+</div>
 
-<div id="portfolio"></div>
+<div class="anchor">
+  <a id="portfolio"></a>
 <div class="container grid-lg">
 <section>
 <div class="section-head">
@@ -174,6 +177,7 @@
 </div>
 </section>
 </div>
+</div>
 
 {# <div class="container grid-lg">
 <section>
@@ -187,7 +191,10 @@
 </section>
 </div> #}
 
-<div id="contact"></div>
+<div class="anchor contact">
+
+<a id="contact"></a>
+</div>
 <section>
 <div class="container grid-lg">
   <div class="contact-background"></div>
@@ -216,27 +223,16 @@
   <div class="hide-md divider-vert"></div>
 <div class="column col-md-12">
   <div class="contact-form">
-    {# <form method="post" action="#">
-  {{ form.hidden_tag() }}
-  {{ form.name(class="contact-element", placeholder="Your Name") }}
-  {{ form.email(class="contact-element", placeholder="Your Email") }}
-  {{ form.subject(class="contact-element", placeholder="Subject") }}
-  {{ form.message(class="contact-element contact-message", placeholder=form.message.label.text) }}
-  <br>
-  {{ form.submit(class="custom-button contact-button", disabled=True) }}
-  <span class="number-count"></span>
-    </form> #}
-
-  <form id="inputform">
+                  <form id="inputform">
 
   <input type="text" name="name" class="contact-element", placeholder="Your Name">
-  <input type="text" name="email" class="contact-element", placeholder="Your Email">
+  <input type="email" name="email" class="contact-element", placeholder="Your Email">
   <input type="text" name="subject" class="contact-element", placeholder="Subject">
   <textarea name="message" class="contact-element contact-message", placeholder=""></textarea>
   <br>
   <span class="number-count"></span>
     </form>
-  <button type="submit" class="custom-button contact-button">Submit</button>
+  <button type="submit" class="custom-button contact-button" disabled="true">Submit</button>
 
   </div>
 </div>
