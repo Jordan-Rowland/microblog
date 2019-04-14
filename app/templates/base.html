@@ -213,6 +213,8 @@
             background-attachment: fixed;
             background-position: top;
             background-size: cover;
+            /*background-size: auto;*/
+
         }
 
         /* Change size of margin-top to 250 for #contact when inserting blog section */
@@ -280,30 +282,34 @@
 
 
 /* MEDIA QUERIES */
-
-    @media only screen and (max-width: 850px) {
-              .nav ul > li > a {
-            /*-webkit-text-fill-color: white;*/
-            /*position: relative;*/
-            float:none;
-            margin: 5px;
-            text-align: center;
-        }
-
-        .head-text {
-            color: blue;
-        }
-
+    @media only screen and (max-width: 599px) {
         .contact-background {
-            /* Change this if needed for mobile*/
-            height: 151%;
+            background-size: auto;
+            min-height: 175%;
         }
+    }
 
-        p {
-            font-weight: 800;
+    @media only screen and (min-width: 600px) {
+        .contact-background {
+            height: 160%;
+            min-height: 120%;
         }
+    }
 
-}
+    @media only screen and (min-width: 900px) {
+        .contact-background {
+            max-height: 80%;
+        }
+    }
+
+    @media only screen and (min-width: 1200px) {
+        .contact-background {
+            min-height: 120%;
+        }
+    }
+
+    @media only screen and (min-width: 1800px) {
+    }
 
     </style>
     <title></title>
