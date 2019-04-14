@@ -205,6 +205,7 @@
             position: absolute;
             margin-top: -100px;
             left: 0px;
+            /* Change height to 120 on large monitors */
             height: 100%;
             width: 100%;
             background-image: url('{{ url_for('static', filename='img/forest.jpeg') }}');
@@ -230,6 +231,54 @@
             padding: 45px;
         }
 
+
+/* Toast */
+
+        #toast {
+          visibility: hidden; /* Hidden by default. Visible on click */
+          min-width: 250px; /* Set a default minimum width */
+          margin-left: -125px; /* Divide value of min-width by 2 */
+          background-color: #3b3; /* Black background color */
+          color: #fff; /* White text color */
+          text-align: center; /* Centered text */
+          border-radius: 2px; /* Rounded borders */
+          padding: 16px; /* Padding */
+          position: fixed; /* Sit on top of the screen */
+          z-index: 1; /* Add a z-index if needed */
+          left: 50%; /* Center the toast */
+          bottom: 30px; /* 30px from the bottom */
+        }
+
+        /* Show the toast when clicking on a button (class added with JavaScript) */
+        #toast.show {
+          visibility: visible; /* Show the toast */
+          -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+          animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        /* Animations to fade the toast in and out */
+        @-webkit-keyframes fadein {
+          from {bottom: 0; opacity: 0;}
+          to {bottom: 30px; opacity: 1;}
+        }
+
+        @keyframes fadein {
+          from {bottom: 0; opacity: 0;}
+          to {bottom: 30px; opacity: 1;}
+        }
+
+        @-webkit-keyframes fadeout {
+          from {bottom: 30px; opacity: 1;}
+          to {bottom: 0; opacity: 0;}
+        }
+
+        @keyframes fadeout {
+          from {bottom: 30px; opacity: 1;}
+          to {bottom: 0; opacity: 0;}
+        }
+
+
+
 /* MEDIA QUERIES */
 
     @media only screen and (max-width: 850px) {
@@ -246,7 +295,8 @@
         }
 
         .contact-background {
-            height: 131%;
+            /* Change this if needed for mobile*/
+            height: 151%;
         }
 
         p {
@@ -280,6 +330,7 @@
 </body>
 
 <script type="text/javascript">
+/* jshint esversion: 9 */
 let count = document.querySelector('.number-count');
 let submit_btn = document.querySelector('.contact-button');
 let nav = document.querySelector('nav');
@@ -306,12 +357,23 @@ document.addEventListener('input', () => {
                 !form_email.value.includes('@') ||
                 form_subject.value == '') {
         count.classList.add('number-count-red');
+        submit_btn.classList.remove('allow-button');
+        submit_btn.classList = 'custom-button contact-button';
         submit_btn.setAttribute('disabled', 'disabled');
     } else {
         submit_btn.removeAttribute('disabled');
         count.classList = 'number-count';
+        submit_btn.addEventListener('click', toast_function);
     }
+
 });
+
+
+function toast_function() {
+    let toast = document.querySelector('#toast');
+    toast.className = 'show';
+    setTimeout(function() {toast.className = toast.className.replace("show", ""); }, 5000);
+}
 
 
 submit_btn.addEventListener('click', () => {
@@ -368,6 +430,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         });
     });
 });
+
 
 </script>
 
