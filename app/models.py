@@ -15,6 +15,26 @@ class Post(db.Model):
     __tablename__ = 'posts'
 
     id = db.Column(db.Integer(), primary_key=True)
-    title = db.Column(db.Text(20), index=True, nullable=False)
+    title = db.Column(db.Text(45), index=True, nullable=False, default='')
     content = db.Column(db.Text(), index=True, nullable=False)
     timestamp = db.Column(db.DateTime, nullable=False, default=datetime.now)
+
+
+    def to_json(self):
+        json_post = {
+            "url": url_for('main.get_post', post_id=self.id),
+            "title": self.title,
+            "content": self.content,
+            "timestamp": self.timestamp,
+            "id": self.id
+        }
+        return json_post
+
+
+    @staticmethod
+    def from_json(json_post):
+        content = json_post.get('content')
+        title = json_post.get('title')
+        if content is None or content == '':
+            raise ValidationError('post does not have any content')
+        return Post(content=content, title=title)
