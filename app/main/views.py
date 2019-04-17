@@ -1,13 +1,13 @@
 from flask import flash, g, jsonify, redirect, render_template, request, url_for
-from flask_login import login_required#, current_user
+from flask_login import login_required, login_user, logout_user, current_user
 # from app.exceptions import ValidationError
 
 from . import main
-# from .forms import PasswordForm, PostForm
+from .forms import PasswordForm, PostForm
 
 from .. import db
 from ..email import send_email
-from ..models import Post
+from ..models import Post, User
 
 
 @main.route('/')
@@ -39,17 +39,21 @@ def blog():
     return render_template('blog.html')
 
 
-@main.route('/post/<blog_title>')
-def blog_post(blog_title):
-    return render_template('post.html', blog_title=blog_title)
+@main.route('/blog/<post_id>')
+def blog_post(post_id):
+    post = Post.query.filter_by(id=post_id).first()
+    return render_template('post.html', post=post)
 
 
-@main.route('/login')
+@main.route('/login', methods=['GET', 'POST'])
 def login():
     form = PasswordForm()
     if form.validate_on_submit():
-        return redirect(url_for('admin'))
-    return render_template('login.html')
+        user = User.query.first()
+        if user.check_password(form.password.data):
+            login_user(user)
+            return redirect(url_for('.admin'))
+    return render_template('login.html', form=form)
 
 
 @main.route('/admin', methods=['GET', 'POST'])
@@ -63,7 +67,7 @@ def admin():
         return redirect(url_for('blog'))
     return render_template('admin.html')
 
-# API endpoints
+########## API endpoints
 
 @main.route('/api/posts')
 def get_posts():

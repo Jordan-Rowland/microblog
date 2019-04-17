@@ -1,8 +1,21 @@
 
-
 {% extends 'base.html' %}
 
 {% block content %}
-login
+<div class="content">
+    <div class="container grid-lg">
+<center class="password-page">
+
+    <h1>Oops!</h1>
+    <p>If you ended up here on accident, don't panic! Just back out slowly, and forget what you saw</p>
+    <br>
+<form action="" method="post">
+{{ form.hidden_tag() }}
+{{form.password}}
+{{form.submit}}
+</form>
+</center>
+</div>
+    </div>
 {% endblock %}
 
