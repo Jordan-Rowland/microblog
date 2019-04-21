@@ -5,10 +5,16 @@
 
 <div class="container grid-lg">
 
-<center><h1>{{ post.title }}</h1></center>
-<p>{{ post.content }}</p>
+<h1>{{ post.title }}</h1>
+    <p>Written by Jordan Rowland</p>
+    <p><em>{{ post.timestamp[:16] }}</em></p>
+    <br>
+{% if post.body_html %}
+{{ post.body_html | safe }}
+{% else %}
+    {{ post.body }}
+{% endif %}
 
-<p>{{ post.timestamp }}</p>
 </div>
 </div>
 

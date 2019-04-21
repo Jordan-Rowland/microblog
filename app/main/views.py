@@ -1,11 +1,11 @@
-from flask import flash, g, jsonify, redirect, render_template, request, url_for
+from flask import g, jsonify, redirect, render_template, request, url_for
 from flask_login import login_required, login_user, logout_user, current_user
 # from app.exceptions import ValidationError
 
 from . import main
 from .forms import PasswordForm, PostForm
 
-from .. import db
+from .. import db, slugify
 from ..email import send_email
 from ..models import Post, User
 
@@ -14,7 +14,6 @@ from ..models import Post, User
 def index():
 
     data = request.get_json()
-    print(data)
     if data:
         send_email(
             to='JordanRowland00@gmail.com',
@@ -34,14 +33,15 @@ def index():
         )
 
 
-@main.route('/blog')
+@main.route('/blog/')
 def blog():
-    return render_template('blog.html')
+    posts = Post.query.order_by(Post.timestamp.desc()).all()
+    return render_template('blog.html', posts=posts)
 
 
-@main.route('/blog/<post_id>')
-def blog_post(post_id):
-    post = Post.query.filter_by(id=post_id).first()
+@main.route('/blog/<string:title_slug>')
+def blog_post(title_slug):
+    post = Post.query.filter_by(title_slug=title_slug).first_or_404()
     return render_template('post.html', post=post)
 
 
@@ -61,30 +61,32 @@ def login():
 def admin():
     form = PostForm()
     if form.validate_on_submit():
-        post = Post(form.post.data)
+        post = Post(title=form.title.data,
+                    body=form.body.data,
+                    title_slug=slugify(form.title.data))
         db.session.add(post)
         db.session.commit()
-        return redirect(url_for('blog'))
-    return render_template('admin.html')
+        return redirect(url_for('.blog_post', title_slug=post.title_slug))
+    return render_template('admin.html', form=form)
 
 ########## API endpoints
 
-@main.route('/api/posts')
+@main.route('/api/posts/')
 def get_posts():
     page = request.args.get('page', 1, type=int)
-    pagination = Post.query.paginate(
+    pagination = Post.query.order_by(Post.timestamp.desc()).paginate(
         page, per_page=10, error_out=False)
     posts = pagination.items
     prev = None
     if pagination.has_prev:
         prev = url_for('main.get_posts', page=page-1)
-    next = None
+    next_page = None
     if pagination.has_next:
         prev = url_for('main.get_posts', page=page+1)
     return jsonify({
         "posts": [post.to_json() for post in posts],
         "prev_url": prev,
-        "next_url": next,
+        "next_url": next_page,
         "count": pagination.total
         })
 
@@ -107,14 +109,13 @@ def new_post():
 @main.route('/api/post/<int:id>', methods=['PUT'])
 def edit_post(id):
     post = Post.query.get_or_404(id)
-    post.content = request.json.get('content', post.content)
+    post.body = request.json.get('body', post.body)
     post.title = request.json.get('title', post.title)
     db.session.add(post)
     db.session.commit()
     return jsonify(post.to_json())
 
 
-@main.route('/poster')
-def add_post_once():
-    post = Post.query.first()
-    return render_template('post.html', post=post)
+@main.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404

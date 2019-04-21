@@ -2,5 +2,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-admin
+<div class="content">
+<div class="container grid-lg">
+<form method="POST">
+{{ form.hidden_tag() }}
+<div>
+{{ form.title.label }}
+</div>
+{{ form.title }}
+<br>
+{{ form.body.label }} {{ form.body(rows="15", cols="110") }}
+{{ form.submit }}
+</form>
+</div>
+</div>
+
+{{ pagedown.include_pagedown() }}
 {% endblock %}

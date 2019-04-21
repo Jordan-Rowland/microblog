@@ -1,8 +1,10 @@
-from datetime import datetime
+import datetime
 
 from flask import current_app, url_for
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
+from markdown import markdown
+import bleach
 
 from . import db, login_manager
 
@@ -26,20 +28,37 @@ class User(db.Model, UserMixin):
         return check_password_hash(self.password_hash, password)
 
 
+# Timezone adjustments
+def now():
+    return datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc)
+
+def astimezone(d, offset):
+    return d.astimezone(datetime.timezone(datetime.timedelta(hours=offset)))
+
+def PDTNow():
+    return str(astimezone(now(), -7))
+
+def PSTNow():
+    return str(astimezone(now(), -8))
+
+
 class Post(db.Model):
     __tablename__ = 'posts'
 
     id = db.Column(db.Integer(), primary_key=True)
-    title = db.Column(db.Text(45), index=True, nullable=False, default='')
-    content = db.Column(db.Text(), index=True, nullable=False)
-    timestamp = db.Column(db.DateTime, nullable=False, default=datetime.now)
+    title = db.Column(db.Text(45), index=True, nullable=False)
+    title_slug = db.Column(db.Text(45), index=True)
+    body = db.Column(db.Text(), index=True, nullable=False)
+    body_html = db.Column(db.Text())
+    timestamp = db.Column(db.Text(), nullable=False, default=PDTNow)
 
 
     def to_json(self):
         json_post = {
             "url": url_for('main.get_post', post_id=self.id),
             "title": self.title,
-            "content": self.content,
+            "title_slug": self.title_slug,
+            "body": self.body,
             "timestamp": self.timestamp,
             "id": self.id
         }
@@ -48,8 +67,21 @@ class Post(db.Model):
 
     @staticmethod
     def from_json(json_post):
-        content = json_post.get('content')
+        body = json_post.get('body')
         title = json_post.get('title')
-        if content is None or content == '':
-            raise ValidationError('post does not have any content')
-        return Post(content=content, title=title)
+        if body is None or body == '':
+            raise ValidationError('post does not have any body')
+        return Post(body=body, title=title)
+
+
+    @staticmethod
+    def on_changed_body(target, value, oldvalue, initiator):
+        allowed_tags = ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code',
+                        'em', 'i', 'li', 'ol', 'pre', 'strong', 'ul',
+                        'h1', 'h2', 'h3', 'p',]
+        target.body_html = bleach.linkify(bleach.clean(
+            markdown(value, output_format='html'),
+            tags=allowed_tags, strip=True))
+
+
+db.event.listen(Post.body, 'set', Post.on_changed_body)

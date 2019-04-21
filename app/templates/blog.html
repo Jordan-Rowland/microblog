@@ -1,5 +1,26 @@
 {% extends 'base.html' %}
 
 {% block content %}
-blog
+<div class="content">
+<div class="container grid-lg">
+{% for post in posts %}
+    <h1>
+    {{ post.title }}
+    </h1>
+    <p>
+    {% if post.body_html %}
+    {{ post.body_html | truncate(500) | safe }}
+    {% else %}
+    {{ post.body }}
+    {% endif %}
+    </p>
+    <p><a href="{{ url_for('.blog_post', title_slug=post.title_slug) }}">Read More</a></p>
+    <em>
+        {{ post.timestamp[:16] }}
+    </em>
+    <hr>
+    <br>
+{% endfor %}
+</div>
+</div>
 {% endblock %}

@@ -42,6 +42,7 @@
         }
 
         .nav {
+            position: absolute;
             height: 70px;
             width: 100%;
             margin-top: 0;
@@ -142,9 +143,23 @@
             margin-top: 10px;
         }
 
+        .blog-content {
+            /*border: 1px black solid;*/
+            max-height: 210px;
+            overflow: hidden;
+        }
+
+        .blog-nav {
+            text-align: center;
+        }
+
+        #prev-post {
+            visibility: hidden;
+        }
+
         i {
             color: #4E8BA2;
-            font-size: 2.5rem;
+            font-size: 2rem;
             margin: 20px;
         }
 
@@ -315,12 +330,16 @@
 </head>
 <body>
 
-{# <nav class="navbar">
-<a href="{{ url_for('.about') }}">About</a>
-<a href="{{ url_for('.blog') }}">Blog</a>
-<a href="{{ url_for('.portfolio') }}">Portfolio</a>
-<a href="{{ url_for('.contact') }}">Contact</a>
-</nav> #}
+<nav class="nav">
+    <ul>
+        <li class="nav-item" id="home-btn"><a href="#home">Home</a></li>
+        <li class="nav-item" id="about-btn"><a href="#about">About</a></li>
+        <li class="nav-item" id="services-btn"><a href="#services">Services</a></li>
+        <li class="nav-item" id="portfolio-btn"><a href="#portfolio">Portfolio</a></li>
+        <li class="nav-item" id="blog-btn"><a href="#blog">Blog</a></li>
+        <li class="nav-item" id="contact-btn"><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
 
 {% block content %}
 {% endblock %}
@@ -340,6 +359,60 @@ let count = document.querySelector('.number-count');
 let submit_btn = document.querySelector('.contact-button');
 let nav = document.querySelector('nav');
 let inputform = document.querySelector('#inputform');
+
+let post_title = document.querySelector('#post-title')
+let post_timestamp = document.querySelector('#post-timestamp')
+let post_body = document.querySelector('#post-body')
+let post_link = document.querySelector('#post-link')
+let next_post = document.querySelector('#next-post')
+let prev_post = document.querySelector('#prev-post')
+let blog_nav = document.querySelector('.blog-nav')
+
+
+let blog_number = 0
+
+
+let display_blog_post = function(res, blog_index=blog_number) {
+    post_title.innerText = res[blog_index].title
+    post_timestamp.innerText = res[blog_index].timestamp.slice(0,16)
+    post_body.innerText = `${res[blog_index].body.slice(0,500)}...`
+    post_link.innerHTML = `<a href="blog/${res[blog_index].title_slug}">Read More</a>`
+}
+
+
+let posts;
+fetch_posts = (post_number) => {
+    fetch('/api/posts')
+    .then(res => res.json())
+    .then(res => res.posts)
+    .then(res => posts = res)
+    .then(res => {
+        display_blog_post(res, blog_index=post_number)
+    })
+    }
+
+
+window.onload = fetch_posts(0)
+
+
+blog_nav.addEventListener('click', (e) => {
+    clicked_element = e.path[0]
+    if (clicked_element == next_post) {
+        blog_number += 1
+        display_blog_post(posts, blog_number)
+    } else if (clicked_element == prev_post) {
+        blog_number -= 1
+        display_blog_post(posts, blog_number)
+    }
+    if (blog_number == 0) {
+        prev_post.style.visibility = 'hidden';
+    } else if (blog_number == 9) {
+        next_post.style.visibility = 'hidden';
+    } else {
+        prev_post.style.visibility = 'visible';
+        next_post.style.visibility = 'visible';
+    }
+})
 
 
 document.addEventListener('input', () => {

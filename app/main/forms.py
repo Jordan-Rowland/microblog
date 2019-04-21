@@ -1,11 +1,14 @@
 from flask_wtf import FlaskForm
-from wtforms import BooleanField, PasswordField, StringField, SubmitField, TextAreaField
+from wtforms import (PasswordField, StringField,
+                     SubmitField, TextAreaField)
+from flask_pagedown.fields import PageDownField
+
 from wtforms.validators import DataRequired, Length, Email
 
 
 class PostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
-    post = StringField('New Blog!', validators=[DataRequired()])
+    body = PageDownField('New Blog!', validators=[DataRequired()])
     submit = SubmitField('Post')
 
 
@@ -16,9 +19,10 @@ class ContactForm(FlaskForm):
         Email(), DataRequired()])
     subject = StringField('Subject', validators=[
         DataRequired()])
-    message = TextAreaField('Leave me a message between 20 and 1500 characters', validators=[
-        Length(min=20, max=1500),
-        DataRequired()])
+    message = TextAreaField('Leave me a message between 20 and 1500 characters',
+        validators=[
+            Length(min=20, max=1500),
+            DataRequired()])
     submit = SubmitField('Submit')
 
 
