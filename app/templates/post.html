@@ -1,13 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+<nav class="sticky nav">
+    <ul>
+        <li class="nav-item"><a href="{{ url_for('.index') }}">Main Page</a></li>
+        <li class="nav-item"><a href="{{ url_for('.blog') }}">Blog Home</a></li>
+    </ul>
+</nav>
+
 <div class="content">
 
 <div class="container grid-lg">
 
 <h1>{{ post.title }}</h1>
-    <p>Written by Jordan Rowland</p>
     <p><em>{{ post.timestamp[:16] }}</em></p>
+    <p>Written by Jordan Rowland</p>
     <br>
 {% if post.body_html %}
 {{ post.body_html | safe }}
