@@ -1,4 +1,4 @@
-from flask import g, jsonify, redirect, render_template, request, url_for
+from flask import g, jsonify, redirect, render_template, request, send_file, send_from_directory, url_for
 from flask_login import login_required, login_user, logout_user, current_user
 # from app.exceptions import ValidationError
 
@@ -10,13 +10,13 @@ from ..email import send_email
 from ..models import Post, User
 
 
-@main.route('/')
+@main.route('/', methods=['GET', 'POST'])
 def index():
 
     data = request.get_json()
     if data:
         send_email(
-            to='JordanRowland00@gmail.com',
+            to='jrowlandlmp@gmail.com',
             subject=f'New message from {data["name"]} - {data["email"]}',
             msg_body=f'''
             [SUBJECT]
@@ -31,6 +31,12 @@ def index():
     return render_template(
         'index.html',
         )
+
+
+@main.route('/download')
+def download():
+    # return send_file("static/Jordan_Rowland_Resume_2019.pdf", as_attachment=True)
+    return render_template('resume.html')
 
 
 @main.route('/blog/')
@@ -59,7 +65,7 @@ def login():
 @main.route('/admin', methods=['GET', 'POST'])
 @login_required
 def admin():
-    form = PostForm()
+    form:PostForm = PostForm()
     if form.validate_on_submit():
         post = Post(title=form.title.data,
                     body=form.body.data,
@@ -98,6 +104,7 @@ def get_post(post_id):
 
 
 @main.route('/api/posts/', methods=['POST'])
+@login_required
 def new_post():
     post = Post.from_json(request.get_json())
     db.session.add(post)

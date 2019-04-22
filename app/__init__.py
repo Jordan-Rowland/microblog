@@ -51,7 +51,7 @@ def create_prod_app():
     return app
 
 
-def slugify(title):
+def slugify(title:str) -> str:
     sub = re.compile(r'[\'",.?!\/_]')
     sub_title = sub.sub('', title)
     slug_title   = '-'.join(sub_title.split()).lower()

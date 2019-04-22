@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 
 {% block content %}
@@ -10,22 +11,9 @@
 </nav>
 
 <div class="content">
-
-<div class="container grid-lg">
-
-<h1>{{ post.title }}</h1>
-    <p><em>{{ post.timestamp[:16] }}</em></p>
-    <p>Written by Jordan Rowland</p>
-    <br>
-{% if post.body_html %}
-{{ post.body_html | safe }}
-{% else %}
-    {{ post.body }}
-{% endif %}
-
+    <div class="container grid-lg">
+<iframe src="{{ url_for('static', filename='Jordan_Rowland_Resume_2019.pdf') }}" style="width:100%; height:1000px;" frameborder="0"></iframe>
+    </div>
 </div>
-</div>
-
 {% endblock %}
-
 
