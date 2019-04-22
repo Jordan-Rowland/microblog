@@ -1,0 +1,334 @@
+html, body {
+    margin:0;
+    padding:0;
+}
+
+.nav a:focus {
+    box-shadow: none;
+}
+
+.nav a {
+    font-weight: 500;
+    -webkit-text-fill-color: white;
+}
+
+.anchor {
+  position: relative;
+}
+
+.anchor a.scroll {
+  position: absolute;
+  top: -80px;
+}
+
+.anchor #contact {
+  position: absolute;
+  top: -270px;
+}
+
+.contact {
+    margin-top: 190px;
+}
+
+.nav {
+    position: absolute;
+    height: 70px;
+    width: 100%;
+    margin-top: 0;
+}
+
+.sticky {
+    position: fixed;
+    margin: 0;
+    z-index: 1;
+    background-color: #2C2E31;
+    transition: ease-in 0.5s;
+}
+
+.nav-item {
+    display: inline;
+
+}
+
+.nav .main-nav {
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+    margin: 10px;
+}
+
+.nav .resume-nav {
+    display: inline-flex;
+    justify-content: right;
+    padding: 5px;
+    margin: 10px;
+}
+
+.header-img {
+    background-image: url('../img/city2.jpeg');
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
+
+.header-img img {
+    width: 100%;
+    height: auto;
+    margin-top: -350px;
+}
+
+.head-text {
+    color: white;
+    font-weight: 600;
+    text-align: center;
+    padding-top: 300px;
+}
+
+.content {
+    background: #F6F7F8;
+    padding: 85px 25px;
+}
+
+.section-head {
+    margin: 30px 0 50px 0 ;
+}
+
+.card {
+    box-shadow: 0 3px 5px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+.contact-card {
+    padding: 15px;
+}
+
+.contact-element {
+    margin: 5px 0;
+    border: 0px;
+    border-bottom: 1px solid #dcdcdc;
+    position: relative;
+    width: 100%;
+
+}
+
+.contact-message {
+    border-radius: 5px;
+    border: 1px solid #dcdcdc;
+    height: 241.5px;
+    resize: none;
+}
+
+.number-count {
+    float: right;
+    margin-right: 15px;
+    margin-top: 12px;
+    color: grey;
+
+}
+
+.number-count-red {
+    color: red;
+}
+
+.services-card {
+    border-radius: 7.5px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    margin-top: 10px;
+}
+
+.blog-content {
+    /*border: 1px black solid;*/
+    max-height: 210px;
+    overflow: hidden;
+}
+
+.blog-nav {
+    text-align: center;
+}
+
+#prev-post {
+    visibility: hidden;
+}
+
+i {
+    color: #4E8BA2;
+    font-size: 2rem;
+    margin: 20px;
+}
+
+.social-icons {
+    text-align: center;
+}
+
+.social-icons > a > i {
+    font-size: 1.9rem;
+}
+
+.social-icons a:hover, .social-icons a:blur, .social-icons a:active {
+    text-decoration: none;
+}
+
+.underline {
+    position: relative;
+    width: 85px;
+    height: 4px;
+    background-color: #4E8BA2;
+    margin: auto;
+    margin-top: -20px;
+}
+
+.custom-button {
+    background-color: #4E8BA2;
+    color: white;
+    border: none;
+    height: 36px;
+    width: 75px;
+    border-radius: 2px;
+}
+
+.contact-icon {
+    margin: -5px 5px -5px 10px;
+    color: #4E8BA2;
+    font-size: .9rem
+}
+
+.contact-header {
+    margin-bottom: 20px;
+}
+
+.contact-text-item {
+    margin-top: 15px;
+}
+
+.contact-icon-text {
+    margin-top: -10px;
+}
+
+.contact-form {
+    margin-top: 25px;
+}
+
+.contact-card {
+    position: relative;
+    padding: 25px;
+    width: auto;
+    margin-top: 100px;
+}
+
+.disabled-button {
+    filter: saturate(25%);
+    color: black;
+}
+
+.contact-background {
+    position: absolute;
+    margin-top: -150px;
+    left: 0px;
+    /* Change height to 120 on large monitors */
+    height: 100%;
+    width: 100%;
+    background-image: url('../img/forest.jpeg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: top;
+    background-size: cover;
+    /*background-size: auto;*/
+
+}
+
+/* Change size of margin-top to 250 for #contact when inserting blog section */
+
+#contact {
+    margin-top: 150px;
+}
+
+.footer {
+    position: absolute;
+    background-color: #4E8BA2;
+    height: 130px;
+    width: 100%;
+    text-align: center;
+    color: white;
+    padding: 45px;
+}
+
+
+/* Toast */
+
+#toast {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  min-width: 250px; /* Set a default minimum width */
+  margin-left: -125px; /* Divide value of min-width by 2 */
+  background-color: #3b3; /* Black background color */
+  color: #fff; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 2px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 50%; /* Center the toast */
+  bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the toast when clicking on a button (class added with JavaScript) */
+#toast.show {
+  visibility: visible; /* Show the toast */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 3.5s;
+  animation: fadein 0.5s, fadeout 0.5s 4.5s;
+}
+
+/* Animations to fade the toast in and out */
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+
+
+/* MEDIA QUERIES */
+@media only screen and (max-width: 599px) {
+.contact-background {
+    background-size: auto;
+    min-height: 175%;
+}
+}
+
+@media only screen and (min-width: 600px) {
+.contact-background {
+    height: 160%;
+    min-height: 120%;
+}
+}
+
+@media only screen and (min-width: 900px) {
+.contact-background {
+    max-height: 80%;
+}
+}
+
+@media only screen and (min-width: 1200px) {
+.contact-background {
+    min-height: 120%;
+}
+}
+
+@media only screen and (min-width: 1800px) {
+}
