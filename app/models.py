@@ -20,6 +20,7 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer(), primary_key=True)
     password_hash = db.Column(db.String(128), nullable=False)
 
+
     def __init__(self, password):
         self.password_hash = generate_password_hash(password)
 
@@ -46,8 +47,8 @@ class Post(db.Model):
     __tablename__ = 'posts'
 
     id = db.Column(db.Integer(), primary_key=True)
-    title = db.Column(db.Text(45), index=True, nullable=False)
-    title_slug = db.Column(db.Text(45), index=True)
+    title = db.Column(db.Text(), index=True, nullable=False)
+    title_slug = db.Column(db.Text(), index=True)
     body = db.Column(db.Text(), index=True, nullable=False)
     body_html = db.Column(db.Text())
     timestamp = db.Column(db.Text(), nullable=False, default=PDTNow)
@@ -55,12 +56,12 @@ class Post(db.Model):
 
     def to_json(self):
         json_post = {
-            "url": url_for('main.get_post', post_id=self.id),
+            "id": self.id,
             "title": self.title,
-            "title_slug": self.title_slug,
             "body": self.body,
             "timestamp": self.timestamp,
-            "id": self.id
+            "title_slug": self.title_slug,
+            "url": url_for('main.get_post', post_id=self.id)
         }
         return json_post
 
@@ -76,7 +77,7 @@ class Post(db.Model):
 
     @staticmethod
     def on_changed_body(target, value, oldvalue, initiator):
-        allowed_tags = ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code',
+        allowed_tags = ['a', 'abbr', 'acronym', 'b', 'blockquote', 'br', 'code',
                         'em', 'i', 'li', 'ol', 'pre', 'strong', 'ul',
                         'h1', 'h2', 'h3', 'p',]
         target.body_html = bleach.linkify(bleach.clean(
@@ -85,3 +86,14 @@ class Post(db.Model):
 
 
 db.event.listen(Post.body, 'set', Post.on_changed_body)
+
+
+class Email(db.Model):
+    __tablename__ = 'emails'
+
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text)
+    email = db.Column(db.Text)
+    subject = db.Column(db.Text)
+    body = db.Column(db.Text)

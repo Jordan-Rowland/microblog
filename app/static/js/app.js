@@ -35,7 +35,7 @@ let fetch_posts = (post_number) => {
     });
 };
 
-onselectstart = (e) => {e.preventDefault()}
+// onselectstart = (e) => {e.preventDefault()}
 
 window.onload = fetch_posts(0);
 
@@ -123,7 +123,6 @@ submit_btn.addEventListener('click', () => {
       },
       body: data
     })
-    // .then(res => JSON.stringify(res.json()))
     .then(() => toast_function())
     .catch(err => console.log(err));
 
@@ -149,9 +148,46 @@ window.onscroll = () => {
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     e.preventDefault();
-
     document.querySelector(this.getAttribute('href')).scrollIntoView({
       behavior: 'smooth'
     });
   });
 });
+
+
+// function typewriter(text, i, speed) {
+//   function typer() {
+//     if (i < text.length) {
+//       document.querySelector("#head-type").innerHTML += text.charAt(i);
+//       i++;
+//       setTimeout(typer, speed);
+//     }
+//   }
+// }
+
+
+// window.onload = typewriter('title', 0, 2500)
+
+
+
+
+
+var i = 0;
+var txt = 'Lorem ipsum typing effect!'; /* The text */
+var speed = 75; /* The speed/duration of the effect in milliseconds */
+
+function typeWriter() {
+  if (i < txt.length) {
+    document.getElementById("head-type").innerHTML += txt.charAt(i);
+    i++;
+    setTimeout(typeWriter, speed);
+  }
+}
+
+
+
+
+
+
+
+window.onload = typeWriter

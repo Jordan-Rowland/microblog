@@ -7,7 +7,7 @@ from .forms import PasswordForm, PostForm
 
 from .. import db, slugify
 from ..email import send_email
-from ..models import Post, User
+from ..models import Email, Post, User
 
 
 @main.route('/', methods=['GET', 'POST'])
@@ -15,6 +15,13 @@ def index():
 
     data = request.get_json()
     if data:
+        email_db = Email(
+            email=data['email'],
+            name=data['name'],
+            subject=data['subject'],
+            body=data['message'])
+        db.session.add()
+        db.session.commit()
         send_email(
             to='jrowlandlmp@gmail.com',
             subject=f'New message from {data["name"]} - {data["email"]}',
@@ -33,8 +40,8 @@ def index():
         )
 
 
-@main.route('/download')
-def download():
+@main.route('/resume')
+def resume():
     # return send_file("static/Jordan_Rowland_Resume_2019.pdf", as_attachment=True)
     return render_template('resume.html')
 
