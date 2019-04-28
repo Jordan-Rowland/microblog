@@ -12,9 +12,6 @@ class Config:
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     MAIL_SENDER_PREFIX = '[MICROBLOG]'
     MAIL_SENDER = 'Portfolio Message <BionicPythonic@gmail.com>'
-    # FAKEBOOK_ADMIN = os.environ.get('FAKEBOOK_ADMIN')
-    # FAKEBOOK_POSTS_PER_PAGE = 10
-    # FAKEBOOK_COMMENTS_PER_PAGE = 10
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SSL_REDIRECT = False
 
@@ -47,6 +44,7 @@ class HerokuConfig(ProductionConfig):
         file_handler.setLevel(logging.INFO)
         app.logger.add_Handler(file_handler)
         SSL_REDIRECT = True if os.environ.get('DYNO') else False
+
 
 config = {
     'development': DevelopmentConfig,

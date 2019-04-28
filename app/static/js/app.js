@@ -39,7 +39,7 @@ let fetch_posts = (post_number) => {
 
 window.onload = fetch_posts(0);
 
-
+// Edit this and put if blog_number inside of clicked_elements
 blog_nav.addEventListener('click', (e) => {
   let clicked_element = e.path[0];
   if (clicked_element == next_post) {
@@ -153,41 +153,3 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
   });
 });
-
-
-// function typewriter(text, i, speed) {
-//   function typer() {
-//     if (i < text.length) {
-//       document.querySelector("#head-type").innerHTML += text.charAt(i);
-//       i++;
-//       setTimeout(typer, speed);
-//     }
-//   }
-// }
-
-
-// window.onload = typewriter('title', 0, 2500)
-
-
-
-
-
-var i = 0;
-var txt = 'Lorem ipsum typing effect!'; /* The text */
-var speed = 75; /* The speed/duration of the effect in milliseconds */
-
-function typeWriter() {
-  if (i < txt.length) {
-    document.getElementById("head-type").innerHTML += txt.charAt(i);
-    i++;
-    setTimeout(typeWriter, speed);
-  }
-}
-
-
-
-
-
-
-
-window.onload = typeWriter

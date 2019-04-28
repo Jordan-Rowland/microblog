@@ -35,6 +35,7 @@ html, body {
     height: 70px;
     width: 100%;
     margin-top: 0;
+    z-index: 1;
 }
 
 .sticky {
@@ -65,7 +66,9 @@ html, body {
 }
 
 .header-img {
-    background-image: url('../img/city2.jpeg');
+    background-image: url('../img/future2.jpeg');
+    filter: grayscale(60%);
+    /*filter: opacity(60%);*/
     height: 100vh;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -84,6 +87,13 @@ html, body {
     font-weight: 600;
     text-align: center;
     padding-top: 300px;
+}
+
+.head-text-2 {
+    color: white;
+    font-weight: 600;
+    text-align: center;
+    /*padding-top: 300px;*/
 }
 
 .content {
@@ -305,6 +315,10 @@ i {
 
 /* MEDIA QUERIES */
 @media only screen and (max-width: 599px) {
+body {
+    max-width: 100%;
+}
+
 .contact-background {
     background-size: auto;
     min-height: 175%;
