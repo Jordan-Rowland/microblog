@@ -2,5 +2,5 @@
 __pycache__/
 *.sh
 *cache
-.sqlite
+*.sqlite
 .env
