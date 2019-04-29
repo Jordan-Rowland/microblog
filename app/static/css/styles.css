@@ -336,6 +336,11 @@ i {
 .contact-background {
     max-height: 100%;
 }
+
+.footer {
+    margin-top: -30px;
+}
+
 }
 
 @media only screen and (min-width: 1200px) {
