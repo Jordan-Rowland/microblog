@@ -13,7 +13,7 @@ class Config:
     MAIL_SENDER_PREFIX = '[MICROBLOG]'
     MAIL_SENDER = 'Portfolio Message <BionicPythonic@gmail.com>'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SSL_REDIRECT = True
+    SSL_REDIRECT = False
 
     @staticmethod
     def init_app(app):
@@ -43,7 +43,7 @@ class HerokuConfig(ProductionConfig):
         file_handler = StreamHandler()
         file_handler.setLevel(logging.INFO)
         app.logger.add_Handler(file_handler)
-        SSL_REDIRECT = True if os.environ.get('DYNO') else False
+        SSL_REDIRECT = True
 
 
 config = {
