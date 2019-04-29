@@ -237,7 +237,7 @@ i {
     margin-top: -150px;
     left: 0px;
     /* Change height to 120 on large monitors */
-    height: 120%;
+    height: 125%;
     width: 100%;
     background-image: url('../img/forest.jpeg');
     background-repeat: no-repeat;
@@ -319,8 +319,8 @@ i {
 }*/
 
 .contact-background {
-    background-size: auto;
-    height: 145px;
+    /*background-size: auto;*/
+    height: 150px;
     min-height: 175%;
 }
 }

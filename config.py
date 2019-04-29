@@ -13,7 +13,7 @@ class Config:
     MAIL_SENDER_PREFIX = '[MICROBLOG]'
     MAIL_SENDER = 'Portfolio Message <BionicPythonic@gmail.com>'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SSL_REDIRECT = False
+    SSL_REDIRECT = True
 
     @staticmethod
     def init_app(app):
@@ -49,4 +49,5 @@ class HerokuConfig(ProductionConfig):
 config = {
     'development': DevelopmentConfig,
     'production': ProductionConfig,
+    'heroku': HerokuConfig,
 }
