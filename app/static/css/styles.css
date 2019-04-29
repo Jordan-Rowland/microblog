@@ -320,7 +320,7 @@ i {
 
 .contact-background {
     /*background-size: auto;*/
-    height: 140%;
+    height: 190%;
     /*min-height: 175%;*/
 }
 }
@@ -334,7 +334,7 @@ i {
 
 @media only screen and (min-width: 900px) {
 .contact-background {
-    max-height: 80%;
+    max-height: 100%;
 }
 }
 
