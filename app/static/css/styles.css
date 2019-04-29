@@ -320,8 +320,8 @@ i {
 
 .contact-background {
     /*background-size: auto;*/
-    height: 150px;
-    min-height: 175%;
+    height: 140%;
+    /*min-height: 175%;*/
 }
 }
 

@@ -40,7 +40,7 @@ def index():
         )
 
 
-@main.route('/resume')
+@main.route('/resume/')
 def resume():
     # return send_file("static/Jordan_Rowland_Resume_2019.pdf", as_attachment=True)
     return render_template('resume.html')
@@ -58,7 +58,7 @@ def blog_post(title_slug):
     return render_template('post.html', post=post)
 
 
-@main.route('/login', methods=['GET', 'POST'])
+@main.route('/login/', methods=['GET', 'POST'])
 def login():
     form = PasswordForm()
     if form.validate_on_submit():
@@ -69,7 +69,7 @@ def login():
     return render_template('login.html', form=form)
 
 
-@main.route('/admin', methods=['GET', 'POST'])
+@main.route('/admin/', methods=['GET', 'POST'])
 @login_required
 def admin():
     form:PostForm = PostForm()
@@ -110,24 +110,24 @@ def get_post(post_id):
     return jsonify(post.to_json())
 
 
-@main.route('/api/posts/', methods=['POST'])
-@login_required
-def new_post():
-    post = Post.from_json(request.get_json())
-    db.session.add(post)
-    db.session.commit()
-    return jsonify(post.to_json()), 201, \
-        {"Location": url_for('main.get_post', post_id=post.id)}
+# @main.route('/api/posts/', methods=['POST'])
+# @login_required
+# def new_post():
+#     post = Post.from_json(request.get_json())
+#     db.session.add(post)
+#     db.session.commit()
+#     return jsonify(post.to_json()), 201, \
+#         {"Location": url_for('main.get_post', post_id=post.id)}
 
 
-@main.route('/api/post/<int:id>', methods=['PUT'])
-def edit_post(id):
-    post = Post.query.get_or_404(id)
-    post.body = request.json.get('body', post.body)
-    post.title = request.json.get('title', post.title)
-    db.session.add(post)
-    db.session.commit()
-    return jsonify(post.to_json())
+# @main.route('/api/post/<int:id>', methods=['PUT'])
+# def edit_post(id):
+#     post = Post.query.get_or_404(id)
+#     post.body = request.json.get('body', post.body)
+#     post.title = request.json.get('title', post.title)
+#     db.session.add(post)
+#     db.session.commit()
+#     return jsonify(post.to_json())
 
 
 @main.errorhandler(404)
