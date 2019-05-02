@@ -20,6 +20,10 @@ def create_dev_app():
     app.config.from_object(config['development'])
     config['development'].init_app(app)
 
+    if app.config['SSL_REDIRECT']:
+        from flask_sslify import SSLify
+        sslify = SSLify(app)
+
     pagedown.init_app(app)
     mail.init_app(app)
     db.init_app(app)

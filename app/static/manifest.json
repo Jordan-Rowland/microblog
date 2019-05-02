@@ -4,36 +4,26 @@
     "start_url": "/",
     "scope": ".",
     "display": "standalone",
-    "background_color": "#fff",
-    "theme_color": "#3F51B5",
-    "description": "Jordan Rowlands Professional Portfolio",
+    "background_color": "#2C2E31",
+    "theme_color": "#4E8BA2",
+    "description": "Jordan Rowland's Developer Portfolio",
     "dir": "ltr",
     "lang": "en-US",
     "orientation": "portrait-primary",
     "icons": [
                 {
-                    "src": "img/icons/app-icon-48x48.png",
-                    "type": "image,png",
-                    "sizes": "48x48"
-                },
-                {
-                    "src": "img/icons/app-icon-96x96.png",
-                    "type": "image,png",
-                    "sizes": "96x96"
-                },
-                {
                     "src": "img/icons/app-icon-192x192.png",
-                    "type": "image,png",
+                    "type": "image/png",
                     "sizes": "192x192"
                 },
                 {
                     "src": "img/icons/app-icon-256x256.png",
-                    "type": "image,png",
+                    "type": "image/png",
                     "sizes": "256x256"
                 },
                 {
                     "src": "img/icons/app-icon-512x512.png",
-                    "type": "image,png",
+                    "type": "image/png",
                     "sizes": "512x512"
                 }
             ],
