@@ -1,0 +1,37 @@
+{
+    "name": "Jordan Rowland Portfolio",
+    "short_name": "JordanRowland",
+    "start_url": "/",
+    "scope": ".",
+    "display": "standalone",
+    "background_color": "#fff",
+    "theme_color": "#3F51B5",
+    "description": "Jordan Rowlands Professional Portfolio",
+    "dir": "ltr",
+    "lang": "en-US",
+    "orientation": "portrait-primary",
+    "icons": [
+                {
+                    "src": "img/icons/app-icon-48x48.png",
+                    "type": "image,png",
+                    "sizes": "48x48"
+                },
+                {
+                    "src": "img/icons/app-icon-96x96.png",
+                    "type": "image,png",
+                    "sizes": "96x96"
+                },
+                {
+                    "src": "img/icons/app-icon-256x256.png",
+                    "type": "image,png",
+                    "sizes": "256x256"
+                }
+            ],
+    "related_applications": [
+                                {
+                                    "platform": "",
+                                    "url": "",
+                                    "id": ""
+                                }
+                            ]
+}

@@ -1,4 +1,23 @@
 /* jshint esversion: 9 */
+
+let headers = new Headers();
+headers.append('Service-Worker-Allowed', '/');
+console.log(headers.get('Service-Worker-Allowed'))
+
+// , {scope: '/'}
+// Register ServiceWorker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker
+    .register("static/sw.js")
+    .then(registration => {
+      console.log(`ServiceWorker running: ${registration}`);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+}
+
+
 let count = document.querySelector('.number-count');
 let submit_btn = document.querySelector('.contact-button');
 let nav = document.querySelector('nav');

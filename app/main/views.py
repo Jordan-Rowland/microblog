@@ -1,6 +1,8 @@
-from flask import g, jsonify, redirect, render_template, request, send_file, send_from_directory, url_for
+from flask import (g, jsonify,
+    redirect, render_template,
+    request, url_for,
+    Response)
 from flask_login import login_required, login_user, logout_user, current_user
-# from app.exceptions import ValidationError
 
 from . import main
 from .forms import PasswordForm, PostForm
@@ -72,7 +74,7 @@ def login():
 @main.route('/admin/', methods=['GET', 'POST'])
 @login_required
 def admin():
-    form:PostForm = PostForm()
+    form = PostForm()
     if form.validate_on_submit():
         post = Post(title=form.title.data,
                     body=form.body.data,
@@ -81,6 +83,18 @@ def admin():
         db.session.commit()
         return redirect(url_for('.blog_post', title_slug=post.title_slug))
     return render_template('admin.html', form=form)
+
+
+@main.route('/sw.js', methods=['GET'])
+def sw():
+    return app.send_static_file('/sw.js')
+    # return "poop"
+
+
+@main.route('/offline')
+def offline():
+    return "Oops! This page hasn't been cached yet!"
+
 
 ########## API endpoints
 

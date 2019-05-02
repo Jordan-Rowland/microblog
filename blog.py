@@ -11,7 +11,6 @@ from flask_migrate import Migrate
 
 manager = Manager()
 
-
 @manager.command
 def deploy():
 	upgrade()
