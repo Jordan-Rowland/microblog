@@ -1,6 +1,6 @@
 from flask import (g, jsonify,
     redirect, render_template,
-    request, url_for,
+    request, url_for, current_app,
     Response)
 from flask_login import login_required, login_user, logout_user, current_user
 
@@ -44,7 +44,6 @@ def index():
 
 @main.route('/resume/')
 def resume():
-    # return send_file("static/Jordan_Rowland_Resume_2019.pdf", as_attachment=True)
     return render_template('resume.html')
 
 
@@ -87,8 +86,7 @@ def admin():
 
 @main.route('/sw.js', methods=['GET'])
 def sw():
-    return app.send_static_file('/sw.js')
-    # return "poop"
+    return current_app.send_static_file('sw.js')
 
 
 @main.route('/offline')

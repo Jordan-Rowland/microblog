@@ -2,7 +2,7 @@
 // headers.append('Service-Worker-Allowed', '/');
 // console.log(headers.get('Service-Worker-Allowed'))
 
-const CACHE_VERSION = 2;
+const CACHE_VERSION = 1;
 const CACHE_STATIC_NAME  = `static-v${CACHE_VERSION}`;
 const CACHE_DYNAMIC_NAME  = `dynamic-v${CACHE_VERSION}`;
 const STATIC_FILES = [
@@ -50,33 +50,33 @@ self.addEventListener('activate', event => {
 });
 
 
-// // Dynamic caching
-// // Cache with network fallback strategy
-// // Can work well, but will sometimes get 'cache-stuck'
-// self.addEventListener('fetch', event => {
-//   event.respondWith(
-//     caches.match(event.request)
-//       .then(response => {
-//         if (response) {
-//           return response
-//         } else {
-//           return fetch(event.request)
-//             .then(res => { // res as argument name because response was used above
-//               return caches.open(CACHE_DYNAMIC_NAME)
-//                 .then(cache => {
-//                   // return res.clone() here so res object is not used up
-//                   // before return
-//                   cache.put(event.request.url, res.clone());
-//                   return res;
-//                 })
-//             })
-//             .catch(err => {
-//               return caches.open(CACHE_STATIC_NAME)
-//               .then(function(cache) {
-//                 return cache.match('/offline');
-//               });
-//             });
-//         }
-//       })
-//   );
-// });
+// Dynamic caching
+// Cache with network fallback strategy
+// Can work well, but will sometimes get 'cache-stuck'
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => {
+        if (response) {
+          return response
+        } else {
+          return fetch(event.request)
+            .then(res => { // res as argument name because response was used above
+              return caches.open(CACHE_DYNAMIC_NAME)
+                .then(cache => {
+                  // return res.clone() here so res object is not used up
+                  // before return
+                  cache.put(event.request.url, res.clone());
+                  return res;
+                })
+            })
+            .catch(err => {
+              return caches.open(CACHE_STATIC_NAME)
+              .then(function(cache) {
+                return cache.match('/offline');
+              });
+            });
+        }
+      })
+  );
+});

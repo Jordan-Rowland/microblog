@@ -1,14 +1,9 @@
 /* jshint esversion: 9 */
 
-let headers = new Headers();
-headers.append('Service-Worker-Allowed', '/');
-console.log(headers.get('Service-Worker-Allowed'))
-
-// , {scope: '/'}
 // Register ServiceWorker
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker
-    .register("static/sw.js")
+    .register("../sw.js", {scope: '/'})
     .then(registration => {
       console.log(`ServiceWorker running: ${registration}`);
     })
