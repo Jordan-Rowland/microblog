@@ -22,7 +22,7 @@ def index():
             name=data['name'],
             subject=data['subject'],
             body=data['message'])
-        db.session.add()
+        db.session.add(emaid_db)
         db.session.commit()
         send_email(
             to='jrowlandlmp@gmail.com',
