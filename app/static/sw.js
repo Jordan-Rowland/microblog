@@ -15,7 +15,7 @@ const STATIC_FILES = [
         '/static/Jordan_Rowland_Resume_2019.pdf',
         '/static/img/forest.jpeg',
         '/static/img/future2.jpeg',
-        '/static/manifest.json',
+        // '/static/manifest.json',
         'https://unpkg.com/spectre.css/dist/spectre.min.css',
         'https://use.fontawesome.com/releases/v5.8.1/css/all.css'
         ]
