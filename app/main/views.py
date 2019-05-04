@@ -51,11 +51,13 @@ def index():
 
 
 @main.route('/resume/')
+@main.route('/resume')
 def resume():
     return render_template('resume.html')
 
 
 @main.route('/blog/')
+@main.route('/blog')
 def blog():
     posts = Post.query.order_by(Post.timestamp.desc()).all()
     return render_template('blog.html', posts=posts)
@@ -68,6 +70,7 @@ def blog_post(title_slug):
 
 
 @main.route('/login/', methods=['GET', 'POST'])
+@main.route('/login', methods=['GET', 'POST'])
 def login():
     form = PasswordForm()
     if form.validate_on_submit():
@@ -78,6 +81,7 @@ def login():
     return render_template('login.html', form=form)
 
 
+@main.route('/logout/')
 @main.route('/logout')
 @login_required
 def logout():
@@ -86,6 +90,7 @@ def logout():
 
 
 @main.route('/admin/', methods=['GET', 'POST'])
+@main.route('/admin', methods=['GET', 'POST'])
 @login_required
 def admin():
     form = PostForm()
@@ -100,6 +105,7 @@ def admin():
 
 
 @main.route('/emails/')
+@main.route('/emails')
 @login_required
 def emails():
     emails = Email.query.all()
@@ -119,6 +125,7 @@ def offline():
 ########## API endpoints
 
 @main.route('/api/posts/')
+@main.route('/api/posts')
 def get_posts():
     page = request.args.get('page', 1, type=int)
     pagination = Post.query.order_by(Post.timestamp.desc()).paginate(
@@ -138,7 +145,7 @@ def get_posts():
         })
 
 
-@main.route('/api/post/<int:post_id>')
+@main.route('/api/posts/<int:post_id>')
 def get_post(post_id):
     post = Post.query.get_or_404(post_id)
     return jsonify(post.to_json())
