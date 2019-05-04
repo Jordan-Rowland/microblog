@@ -46,9 +46,19 @@ html, body {
     transition: ease-in 0.5s;
 }
 
+.nav-admin {
+    display: flex;
+    justify-content: flex-end;
+    background: #F6F7F8;
+}
+
+.nav-admin > ul > li {
+    display: inline;
+    margin: 0 15px;
+}
+
 .nav-item {
     display: inline;
-
 }
 
 .nav .main-nav {

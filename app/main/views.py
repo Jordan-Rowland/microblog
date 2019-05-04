@@ -1,8 +1,16 @@
-from flask import (g, jsonify,
-    redirect, render_template,
-    request, url_for, current_app,
-    Response)
-from flask_login import login_required, login_user, logout_user, current_user
+from flask import (
+    current_app,
+    g,
+    jsonify,
+    redirect,
+    render_template,
+    request,
+    url_for)
+from flask_login import (
+    login_required,
+    login_user,
+    logout_user,
+    current_user)
 
 from . import main
 from .forms import PasswordForm, PostForm
@@ -70,6 +78,13 @@ def login():
     return render_template('login.html', form=form)
 
 
+@main.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('.index'))
+
+
 @main.route('/admin/', methods=['GET', 'POST'])
 @login_required
 def admin():
@@ -84,6 +99,13 @@ def admin():
     return render_template('admin.html', form=form)
 
 
+@main.route('/emails/')
+@login_required
+def emails():
+    emails = Email.query.all()
+    return render_template('emails.html', emails=emails)
+
+
 @main.route('/sw.js', methods=['GET'])
 def sw():
     return current_app.send_static_file('sw.js')
@@ -91,7 +113,7 @@ def sw():
 
 @main.route('/offline')
 def offline():
-    return "Oops! This page hasn't been cached yet!"
+    return render_template('offline.html')
 
 
 ########## API endpoints

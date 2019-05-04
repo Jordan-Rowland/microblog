@@ -1,11 +1,11 @@
 {
     "name": "Jordan Rowland Portfolio",
-    "short_name": "JordanRowland",
+    "short_name": "JRDeveloper",
     "start_url": "/",
     "scope": ".",
     "display": "standalone",
     "background_color": "#4E8BA2",
-    "theme_color": "#4E8BA2",
+    "theme_color": "#4E8BA3",
     "description": "Jordan Rowland's Developer Portfolio",
     "dir": "ltr",
     "lang": "en-US",
@@ -46,12 +46,5 @@
                     "type": "image/png",
                     "sizes": "512x512"
                 }
-            ],
-    "related_applications": [
-                                {
-                                    "platform": "",
-                                    "url": "",
-                                    "id": ""
-                                }
-                            ]
+            ]
 }

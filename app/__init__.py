@@ -13,6 +13,7 @@ pagedown = PageDown()
 mail = Mail()
 db = SQLAlchemy()
 login_manager = LoginManager()
+login_manager.login_view = 'main.login'
 
 
 def create_dev_app():

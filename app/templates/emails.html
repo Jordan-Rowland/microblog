@@ -11,18 +11,21 @@
 </nav>
 <div class="content">
 <div class="container grid-lg">
-<form method="POST">
-{{ form.hidden_tag() }}
-<div>
-{{ form.title.label }}
-</div>
-{{ form.title }}
+{% for email in emails %}
+    <h1>
+    {{ email.subject }}
+    </h1>
+    <p>
+    {{ email.name }}
+    </p>
+    <p>
+    {{ email.email }}
+    </p>
+    {{ email.body }}
+{% endfor %}
 <br>
-{{ form.body.label }} {{ form.body(rows="15", cols="110") }}
-{{ form.submit }}
-</form>
+<br>
 </div>
 </div>
 
-{{ pagedown.include_pagedown() }}
 {% endblock %}
