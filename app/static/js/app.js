@@ -5,7 +5,7 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker
     .register("../sw.js", {scope: '/'})
     .then(registration => {
-      console.log(`ServiceWorker running: ${registration}`);
+      console.log('[Service Worker] Service worker Registered');
     })
     .catch(err => {
       console.log(err);
@@ -30,7 +30,7 @@ let blog_nav = document.querySelector('.blog-nav');
 let blog_number = 0;
 
 
-let display_blog_post = function (res, blog_index = blog_number) {
+let displayBlogPosts = function (res, blog_index = blog_number) {
   post_title.innerText = res[blog_index].title;
   post_timestamp.innerText = res[blog_index].timestamp.slice(0, 16);
   post_body.innerText = `${res[blog_index].body.slice(0,500)}...`;
@@ -40,28 +40,25 @@ let display_blog_post = function (res, blog_index = blog_number) {
 
 let posts;
 let fetchPosts = () => {
-  if (navigator.onLine) {
-    fetch('/api/posts')
-      .then(res => res.json())
-      .then(json => json.posts)
-      .then(jsonPosts => posts = jsonPosts)
-      .then(res => {
-        display_blog_post(res, 0);
-      })
-  }
+  fetch('/api/posts')
+    .then(res => res.json())
+    .then(json => json.posts)
+    .then(jsonPosts => posts = jsonPosts)
+    .then(res => displayBlogPosts(res, 0))
 };
 
-window.onload = fetchPosts();
+window.onload = () => fetchPosts()
+
 
 // Edit this and put if blog_number inside of clicked_elements
 blog_nav.addEventListener('click', (e) => {
   let clicked_element = e.path[0];
   if (clicked_element == next_post) {
     blog_number += 1;
-    display_blog_post(posts, blog_number);
+    displayBlogPosts(posts, blog_number);
   } else if (clicked_element == prev_post) {
     blog_number -= 1;
-    display_blog_post(posts, blog_number);
+    displayBlogPosts(posts, blog_number);
   }
   if (blog_number == 0) {
     prev_post.style.visibility = 'hidden';
