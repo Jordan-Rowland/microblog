@@ -39,19 +39,19 @@ let display_blog_post = function (res, blog_index = blog_number) {
 
 
 let posts;
-let fetch_posts = (post_number) => {
-  fetch('/api/posts')
-    .then(res => res.json())
-    .then(res => res.posts)
-    .then(res => posts = res)
-    .then(res => {
-      display_blog_post(res, post_number);
-    });
+let fetchPosts = () => {
+  if (navigator.onLine) {
+    fetch('/api/posts')
+      .then(res => res.json())
+      .then(json => json.posts)
+      .then(jsonPosts => posts = jsonPosts)
+      .then(res => {
+        display_blog_post(res, 0);
+      })
+  }
 };
 
-// onselectstart = (e) => {e.preventDefault()}
-
-window.onload = fetch_posts(0);
+window.onload = fetchPosts();
 
 // Edit this and put if blog_number inside of clicked_elements
 blog_nav.addEventListener('click', (e) => {
