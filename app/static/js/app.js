@@ -126,16 +126,25 @@ submit_btn.addEventListener('click', () => {
     message: form_message
   });
 
-  fetch('/', {
-      method: "POST",
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: data
-    })
-    .then(() => toast_function())
-    .catch(err => console.log(err));
+  if ('serviceWorker' in navigator && 'SyncManager' in window) {
+    navigator.serviceWorker.ready
+    .then(sw => sw.sync.register('sync-new-email'))
+  }
+
+
+  writeData('newEmails', data)
+
+
+  // fetch('/', {
+  //     method: "POST",
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Accept': 'application/json'
+  //     },
+  //     body: data
+  //   })
+  //   .then(() => toast_function())
+  //   .catch(err => console.log(err));
 
   form.name.value = '';
   form.email.value = '';
