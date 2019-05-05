@@ -5,7 +5,7 @@
 // createObjectStore must be called if table does not exist yet
 let dbPromise = idb.open('emails', 1, db => {
   if (!db.objectStoreNames.contains('newEmails')) {
-    db.createObjectStore('newEmails', {keyPath: 'id'});
+    db.createObjectStore('newEmails', {keyPath: 'id', autoIncrement: true});
   }
 });
 

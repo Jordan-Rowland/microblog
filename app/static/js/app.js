@@ -111,6 +111,19 @@ function toast_function() {
 }
 
 
+function sendData(dataToSend) {
+  fetch('/', {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: dataToSend
+  })
+  .catch(err => console.log(err, '-> Will retry when back online'));
+}
+
+
 submit_btn.addEventListener('click', () => {
   let form = inputform.elements;
 
@@ -126,25 +139,46 @@ submit_btn.addEventListener('click', () => {
     message: form_message
   });
 
+
   if ('serviceWorker' in navigator && 'SyncManager' in window) {
     navigator.serviceWorker.ready
-    .then(sw => sw.sync.register('sync-new-email'))
+    .then(function(sw) {
+      let storedEmails;
+      readAllData('newEmails')
+        .then(res => res.length)
+          .then(function(storedEmails) {
+            writeData('newEmails', {
+              id: storedEmails + 1,
+              name: form_name,
+              email: form_email,
+              subject: form_subject,
+              message: form_message
+            })
+              .then(() => sw.sync.register('sync-new-email'))
+              .then(() => toast_function())
+              .catch(err => console.log(err))
+          })
+    })
+  } else {
+    sendData(data);
   }
 
+// // Send data from IndexedDB
+// readAllData('newEmails')
+//   .then(res => res.pop())
+//     .then(function(res) {
+//       fetch('/', {
+//           method: "POST",
+//           headers: {
+//             'Content-Type': 'application/json',
+//             'Accept': 'application/json'
+//           },
+//           body: JSON.stringify(res)
+//         })
+//         .catch(err => console.log(err, '-> Will retry when back online'));
+// })
 
-  writeData('newEmails', data)
 
-
-  // fetch('/', {
-  //     method: "POST",
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Accept': 'application/json'
-  //     },
-  //     body: data
-  //   })
-  //   .then(() => toast_function())
-  //   .catch(err => console.log(err));
 
   form.name.value = '';
   form.email.value = '';
@@ -152,6 +186,8 @@ submit_btn.addEventListener('click', () => {
   form.message.value = '';
   count.innerText = '';
   submit_btn.setAttribute('disabled', 'disabled');
+
+
 
 });
 
