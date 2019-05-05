@@ -3,7 +3,7 @@
     "short_name": "JRDeveloper",
     "start_url": "/",
     "scope": ".",
-    "display": "fullscrene",
+    "display": "fullscreen",
     "background_color": "#4E8BA2",
     "theme_color": "#4E8BA2",
     "description": "Jordan Rowland's Developer Portfolio",
