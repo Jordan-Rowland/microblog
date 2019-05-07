@@ -1,6 +1,7 @@
-const CACHE_VERSION = 0.02;
-const CACHE_STATIC_NAME  = `staticCache_v${CACHE_VERSION}`;
-const CACHE_DYNAMIC_NAME  = `dynamicCache_v${CACHE_VERSION}`;
+const CACHE_VERSION = 0.20;
+const STATIC_CACHE  = `staticCache_v${CACHE_VERSION}`;
+const DYNAMIC_CACHE  = `dynamicCache_v${CACHE_VERSION}`;
+const POST_CACHE = `blogPostCache_v${CACHE_VERSION}`;
 const STATIC_FILES = [
         '/',
         '/blog',
@@ -21,9 +22,9 @@ self.addEventListener('install', installEvent => {
   console.log('[Service Worker] Installing service worker...');
   skipWaiting();
   installEvent.waitUntil(
-    caches.open(CACHE_STATIC_NAME)
+    caches.open(STATIC_CACHE)
     .then(function(staticCache) {
-      console.log(`[Service Worker] Pre-caching app shell -> ${CACHE_STATIC_NAME}`);
+      console.log(`[Service Worker] Pre-caching app shell -> ${STATIC_CACHE}`);
       return staticCache.addAll(STATIC_FILES);
     }) // end .then
   ) // end waitUntil
@@ -38,7 +39,7 @@ self.addEventListener('activate', activationEvent => {
     .then(cacheNames => {
       return Promise.all(
         cacheNames.map(cacheName => {
-          if (cacheName !== CACHE_STATIC_NAME && cacheName !== CACHE_DYNAMIC_NAME) {
+          if (cacheName !== STATIC_CACHE && cacheName !== DYNAMIC_CACHE && cacheName !== POST_CACHE) {
             console.log(`[Service Worker] Removing old cache -> ${cacheName}`)
             return caches.delete(cacheName);
         } // end if
@@ -54,27 +55,59 @@ self.addEventListener('activate', activationEvent => {
 // Cache with network fallback strategy
 // Can work well, but will sometimes get 'cache-stuck'
 self.addEventListener('fetch', fetchEvent => {
-  console.log('[Service Worker] Listening for fetch events...')
+  let request = fetchEvent.request
+  // console.log('[Service Worker] Listening for fetch events...')
+  if (request.url.includes('/api/posts')) {
+    fetchEvent.respondWith(
+      // This all only works because I stopped deleted posts cache on activation
+    caches.match(request).then(responseFromCache => {
+      if (responseFromCache) {
+        console.log('Fetching blog posts from cache')
+        fetchEvent.waitUntil(
+          fetch(request).then(responseFromFetch => {
+            caches.open(POST_CACHE).then(postCache => {
+              console.log('Caching any new blog posts')
+              return postCache.put(request, responseFromFetch);
+            }); // end open.then
+            }) // then fetch.then
+          ); // end waitUntil
+        console.log('Serving blog posts from cache')
+        return responseFromCache;
+      } //end if
+      return fetch(request).then(responseFromFetch => {
+        let postCopy = responseFromFetch.clone()
+        fetchEvent.waitUntil(
+          caches.open(POST_CACHE).then(postCache => {
+            console.log('Caching blog posts from network for first time')
+            return postCache.put(request, postCopy);
+          }) // end caches.open.then // end open.then
+        ); // end waitUntil
+        console.log('Serving blog posts from network')
+        return responseFromFetch;
+      }) // end fetch.then
+    }) // end caches.match.then
+  )
+  return;
+  } // end if /api/posts
   fetchEvent.respondWith(
-    caches.match(fetchEvent.request)
+    caches.match(request)
       .then(responseFromCache => {
         if (responseFromCache) {
           return responseFromCache
         } else {
-          return fetch(fetchEvent.request)
+          return fetch(request)
             .then(responseFromFetch => {
-              return caches.open(CACHE_DYNAMIC_NAME)
+              let responseCopy = responseFromFetch.clone()
+              console.log(`[Service Worker] Adding asset to dynamic cache -> ${DYNAMIC_CACHE}`);
+              caches.open(DYNAMIC_CACHE)
                 .then(dynamicCache => {
-                  console.log(`[Service Worker] Caching dynamic assets -> ${CACHE_DYNAMIC_NAME}`);
-                  dynamicCache.put(fetchEvent.request.url, responseFromFetch.clone());
-                  return responseFromFetch;
+                  dynamicCache.put(request.url, responseCopy);
                 })
+              return responseFromFetch;
             })
             .catch(err => {
-              return caches.open(CACHE_STATIC_NAME)
-              .then(cache => {
-                return cache.match('/offline');
-              });
+              return caches.match('/offline');
+              // });
             });
         }
       })
