@@ -1,4 +1,4 @@
-const CACHE_VERSION = 0.20;
+const CACHE_VERSION = 0.22;
 const STATIC_CACHE  = `staticCache_v${CACHE_VERSION}`;
 const DYNAMIC_CACHE  = `dynamicCache_v${CACHE_VERSION}`;
 const POST_CACHE = `blogPostCache_v${CACHE_VERSION}`;
@@ -62,26 +62,26 @@ self.addEventListener('fetch', fetchEvent => {
       // This all only works because I stopped deleted posts cache on activation
     caches.match(request).then(responseFromCache => {
       if (responseFromCache) {
-        console.log('Fetching blog posts from cache')
         fetchEvent.waitUntil(
           fetch(request).then(responseFromFetch => {
-            caches.open(POST_CACHE).then(postCache => {
-              console.log('Caching any new blog posts')
-              return postCache.put(request, responseFromFetch);
-            }); // end open.then
-            }) // then fetch.then
-          ); // end waitUntil
+            if (responseFromFetch.status === 200) {
+              caches.open(POST_CACHE).then(postCache => {
+                console.log('Caching any new blog posts')
+                return postCache.put(request, responseFromFetch);
+              }); // end open.then
+            } // end if response === 200
+          }) // then fetch.then
+        ); // end waitUntil
         console.log('Serving blog posts from cache')
         return responseFromCache;
       } //end if
       return fetch(request).then(responseFromFetch => {
-        let postCopy = responseFromFetch.clone()
-        fetchEvent.waitUntil(
-          caches.open(POST_CACHE).then(postCache => {
-            console.log('Caching blog posts from network for first time')
-            return postCache.put(request, postCopy);
-          }) // end caches.open.then // end open.then
-        ); // end waitUntil
+          let postCopy = responseFromFetch.clone()
+          fetchEvent.waitUntil(
+            caches.open(POST_CACHE).then(postCache => {
+              return postCache.put(request, postCopy);
+            }) // end caches.open.then
+          ); // end waitUntil
         console.log('Serving blog posts from network')
         return responseFromFetch;
       }) // end fetch.then
