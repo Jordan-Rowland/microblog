@@ -1,4 +1,4 @@
-const CACHE_VERSION = 0.22;
+const CACHE_VERSION = 0.26;
 const STATIC_CACHE  = `staticCache_v${CACHE_VERSION}`;
 const DYNAMIC_CACHE  = `dynamicCache_v${CACHE_VERSION}`;
 const POST_CACHE = `blogPostCache_v${CACHE_VERSION}`;
@@ -6,8 +6,7 @@ const STATIC_FILES = [
         '/',
         '/blog',
         '/offline',
-        // '/api/posts',
-        // '/static/js/app.js',
+        '/static/js/app.js',
         '/static/css/styles.css',
         '/static/Jordan_Rowland_Resume_2019.pdf',
         '/static/img/forest.jpeg',
@@ -16,6 +15,7 @@ const STATIC_FILES = [
         'https://use.fontawesome.com/releases/v5.8.1/css/all.css'
         ]
 
+const CACHES = [STATIC_CACHE, DYNAMIC_CACHE, POST_CACHE]
 
 // Cache app shell then install service worker
 self.addEventListener('install', installEvent => {
@@ -39,7 +39,7 @@ self.addEventListener('activate', activationEvent => {
     .then(cacheNames => {
       return Promise.all(
         cacheNames.map(cacheName => {
-          if (cacheName !== STATIC_CACHE && cacheName !== DYNAMIC_CACHE && cacheName !== POST_CACHE) {
+          if (!CACHES.includes(cacheName)) {
             console.log(`[Service Worker] Removing old cache -> ${cacheName}`)
             return caches.delete(cacheName);
         } // end if
@@ -66,7 +66,7 @@ self.addEventListener('fetch', fetchEvent => {
           fetch(request).then(responseFromFetch => {
             if (responseFromFetch.status === 200) {
               caches.open(POST_CACHE).then(postCache => {
-                console.log('Caching any new blog posts')
+                console.log('Caching any new blog posts from network')
                 return postCache.put(request, responseFromFetch);
               }); // end open.then
             } // end if response === 200
@@ -79,6 +79,7 @@ self.addEventListener('fetch', fetchEvent => {
           let postCopy = responseFromFetch.clone()
           fetchEvent.waitUntil(
             caches.open(POST_CACHE).then(postCache => {
+              console.log('Caching blog posts from network for first time')
               return postCache.put(request, postCopy);
             }) // end caches.open.then
           ); // end waitUntil
@@ -107,10 +108,9 @@ self.addEventListener('fetch', fetchEvent => {
             })
             .catch(err => {
               return caches.match('/offline');
-              // });
-            });
-        }
-      })
-  );
-});
+            }); // end .catch(err)
+        } // end else
+      }) // end caches.match
+  ); // end respondWith
+}); // end eventListener
 
