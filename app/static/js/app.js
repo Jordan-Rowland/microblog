@@ -44,8 +44,14 @@ let fetchPosts = () => {
     .then(res => res.json())
     .then(json => json.posts)
     .then(jsonPosts => posts = jsonPosts)
-    .then(res => displayBlogPosts(res, 0))
+    .then(res => {
+      displayBlogPosts(res, 0);
+      for (post of res) {
+        fetch(`/blog/${post.title_slug}`)
+      }
+    })
 };
+
 
 window.onload = () => fetchPosts()
 

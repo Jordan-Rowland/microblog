@@ -1,12 +1,12 @@
 /* jshint esversion: 9 */
 
-const CACHE_VERSION = 0.30;
+const CACHE_VERSION = 0.31;
 const STATIC_CACHE  = `staticCache_v${CACHE_VERSION}`;
 const DYNAMIC_CACHE  = `dynamicCache_v${CACHE_VERSION}`;
 const POST_CACHE = `blogPostCache_v${CACHE_VERSION}`;
 const STATIC_FILES = [
         '/',
-        '/blog',
+        '/blog/',
         '/offline',
         '/static/js/app.js',
         '/static/css/styles.css',
