@@ -5,6 +5,7 @@ from flask import (
     redirect,
     render_template,
     request,
+    send_file,
     url_for)
 from flask_login import (
     login_required,
@@ -50,10 +51,15 @@ def index():
         )
 
 
+def download_resume():
+    return send_file('static/Jordan_Rowland_Resume_2019.pdf', as_attachment=True)
+
+
 @main.route('/resume/')
 @main.route('/resume')
 def resume():
-    return render_template('resume.html')
+    return download_resume()
+    # return render_template('resume.html')
 
 
 @main.route('/blog/')
