@@ -39,21 +39,18 @@ let displayBlogPosts = function (res, blog_index = blog_number) {
 
 
 let posts;
-let fetchPosts = () => {
-  fetch('/api/posts')
-    .then(res => res.json())
-    .then(json => json.posts)
-    .then(jsonPosts => posts = jsonPosts)
-    .then(res => {
-      displayBlogPosts(res, 0);
-      for (post of res) {
-        fetch(`/blog/${post.title_slug}`)
-      }
-    })
+async function fetchPosts() {
+  res = await fetch('/api/posts')
+  json = await res.json()
+  posts = await json.posts
+  displayBlogPosts(posts, 0);
+  for (post of posts) {
+    fetch(`/blog/${post.title_slug}`)
+  }
 };
 
 
-window.onload = () => fetchPosts()
+window.onload = fetchPosts()
 
 
 // Edit this and put if blog_number inside of clicked_elements

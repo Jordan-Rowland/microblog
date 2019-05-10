@@ -59,7 +59,6 @@ def download_resume():
 @main.route('/resume')
 def resume():
     return download_resume()
-    # return render_template('resume.html')
 
 
 @main.route('/blog/')

@@ -19,16 +19,27 @@ const STATIC_FILES = [
 
 
 // Cleaning up cache
-function trimCache(cacheName, maxItems) {
-  caches.open(cacheName).then(cache => {
-    cache.keys().then(keys => {
-    if (keys.length > maxItems) {
-      cache.delete(keys[0])
-      .then(trimCache(cacheName, maxItems));
-    } // end if
-  }); // end keys.then
-  }); // end open.then
+async function trimCache(cacheName, maxItems) {
+  cache = await caches.open(cacheName)
+  keys = await cache.keys()
+  if (keys.length > maxItems) {
+    await cache.delete(keys[0])
+    trimCache(cacheName, maxItems);
+  } // end if
 } // end function
+
+
+// Cleaning up cache
+// function trimCache(cacheName, maxItems) {
+//   caches.open(cacheName).then(cache => {
+//     cache.keys().then(keys => {
+//     if (keys.length > maxItems) {
+//       cache.delete(keys[0])
+//       .then(trimCache(cacheName, maxItems));
+//     } // end if
+//   }); // end keys.then
+//   }); // end open.then
+// } // end function
 
 
 const CACHES = [STATIC_CACHE, DYNAMIC_CACHE, POST_CACHE];
