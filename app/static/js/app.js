@@ -31,11 +31,11 @@ let blog_number = 0;
 
 
 let displayBlogPosts = function (res, blog_index = blog_number) {
-  console.log('pass')
-  // post_title.innerText = res[blog_index].title;
-  // post_timestamp.innerText = res[blog_index].timestamp.slice(0, 16);
-  // post_body.innerText = `${res[blog_index].body.slice(0,500)}...`;
-  // post_link.innerHTML = `<a href="blog/${res[blog_index].title_slug}">Read More</a>`;
+  // console.log('pass')
+  post_title.innerText = res[blog_index].title;
+  post_timestamp.innerText = res[blog_index].timestamp.slice(0, 16);
+  post_body.innerText = `${res[blog_index].body.slice(0,500)}...`;
+  post_link.innerHTML = `<a href="blog/${res[blog_index].title_slug}">Read More</a>`;
 };
 
 
@@ -145,7 +145,6 @@ function sendFromIDB() {
 }
 
 
-console.log('funk4')
 submit_btn.addEventListener('click', () => {
   let form = inputform.elements;
   let form_name = form.name.value;

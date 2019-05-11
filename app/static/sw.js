@@ -1,6 +1,6 @@
 /* jshint esversion: 9 */
 
-const CACHE_VERSION = 0.38;
+const CACHE_VERSION = 0.39;
 const STATIC_CACHE  = `staticCache_v${CACHE_VERSION}`;
 const DYNAMIC_CACHE  = `dynamicCache_v${CACHE_VERSION}`;
 const POST_CACHE = `blogPostCache_v${CACHE_VERSION}`;
