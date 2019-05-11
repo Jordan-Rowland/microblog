@@ -31,7 +31,6 @@ let blog_number = 0;
 
 
 let displayBlogPosts = function (res, blog_index = blog_number) {
-  // console.log('pass')
   post_title.innerText = res[blog_index].title;
   post_timestamp.innerText = res[blog_index].timestamp.slice(0, 16);
   post_body.innerText = `${res[blog_index].body.slice(0,500)}...`;
@@ -127,22 +126,22 @@ function sendDataNetworkOnly(dataToSend) {
 }
 
 
-// Send data from IndexedDB
-function sendFromIDB() {
-  readAllData('newEmails')
-  .then(function(res) {
-    fetch('/', {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(res)
-      })
-    .then(res => clearAllData('newEmails'))
-    .catch(err => console.log(err, '-> Will retry when back online'));
-  })
-}
+// // Send data from IndexedDB
+// function sendFromIDB() {
+//   readAllData('newEmails')
+//   .then(function(res) {
+//     fetch('/', {
+//         method: "POST",
+//         headers: {
+//           'Content-Type': 'application/json',
+//           'Accept': 'application/json'
+//         },
+//         body: JSON.stringify(res)
+//       })
+//     .then(res => clearAllData('newEmails'))
+//     .catch(err => console.log(err, '-> Will retry when back online'));
+//   })
+// }
 
 
 submit_btn.addEventListener('click', () => {

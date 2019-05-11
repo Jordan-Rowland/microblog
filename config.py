@@ -27,8 +27,7 @@ class DevelopmentConfig(Config):
 
 
 class ProductionConfig(Config):
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'postgres://bbepdytttzfccp:e72b929d48b3d113e0f472afaf0e1e2033527ca827def7de383592c440d2689b@ec2-23-21-106-241.compute-1.amazonaws.com:5432/d5bqv61oothi3a'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
     SSL_REDIRECT = True
 
 

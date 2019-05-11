@@ -1,5 +1,8 @@
 /* jshint esversion: 9 */
 
+importScripts('/static/js/idb.js');
+importScripts('/static/js/utility.js');
+
 const CACHE_VERSION = 0.39;
 const STATIC_CACHE  = `staticCache_v${CACHE_VERSION}`;
 const DYNAMIC_CACHE  = `dynamicCache_v${CACHE_VERSION}`;
@@ -125,3 +128,35 @@ self.addEventListener('fetch', fetchEvent => {
     }) // end caches.match
   ); // end respondWith
 }); // end eventListener
+
+
+// Send data from IndexedDB
+function sendFromIDB() {
+  readAllData('newEmails')
+  .then(function(res) {
+    fetch('/', {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(res)
+      })
+    .then(res => {
+      if (res.ok) {
+        clearAllData('newEmails')}
+      })
+    .catch(err => console.log(err, '-> Will retry when back online'));
+  })
+}
+
+
+self.addEventListener('sync', syncEvent => {
+  console.log('[Service Worker] Background Sync triggered');
+  if (syncEvent.tag === 'sync-new-email') {
+    console.log('[Service Worker] Syncing new emails');
+    syncEvent.waitUntil(
+      sendFromIDB()
+    );
+  }
+});
