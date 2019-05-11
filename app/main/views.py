@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask import (
     current_app,
     g,
@@ -25,27 +27,30 @@ from ..models import Email, Post, User
 def index():
 
     list_of_emails = request.get_json()
+    print(list_of_emails)
     if list_of_emails:
-        for data in list(list_of_emails):
+        for data in list_of_emails:
             email_db = Email(
-                email=data['email'],
-                name=data['name'],
-                subject=data['subject'],
-                body=data['message'])
+                email=data.get('email'),
+                name=data.get('name'),
+                subject=data.get('subject'),
+                body=data.get('message'),
+                timestamp=data.get('timestamp')
+                )
             db.session.add(email_db)
             db.session.commit()
-            send_email(
-                to='jrowlandlmp@gmail.com',
-                subject=f'New message from {data["name"]} - {data["email"]}',
-                msg_body=f'''
-                [SUBJECT]
-                {data["subject"]}
+            # send_email(
+            #     to='jrowlandlmp@gmail.com',
+            #     subject=f'New message from {data.get("name")} - {data.get("email")}',
+            #     msg_body=f'''
+            #     [SUBJECT]
+            #     {data.get("subject")}
 
-                [MESSAGE]
-                {data["message"]}
-                ''',
-                template='email'
-                )
+            #     [MESSAGE]
+            #     {data.get("message")}
+            #     ''',
+            #     template='email'
+            #     )
 
     return render_template(
         'index.html',

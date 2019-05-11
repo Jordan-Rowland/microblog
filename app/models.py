@@ -97,3 +97,4 @@ class Email(db.Model):
     email = db.Column(db.Text)
     subject = db.Column(db.Text)
     body = db.Column(db.Text)
+    timestamp = db.Column(db.Text(), default=PDTNow)

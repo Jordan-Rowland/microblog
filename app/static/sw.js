@@ -1,6 +1,6 @@
 /* jshint esversion: 9 */
 
-const CACHE_VERSION = 0.33;
+const CACHE_VERSION = 0.38;
 const STATIC_CACHE  = `staticCache_v${CACHE_VERSION}`;
 const DYNAMIC_CACHE  = `dynamicCache_v${CACHE_VERSION}`;
 const POST_CACHE = `blogPostCache_v${CACHE_VERSION}`;
@@ -8,14 +8,14 @@ const STATIC_FILES = [
         '/',
         '/blog/',
         // '/api/posts',
-        '/offline',
-        '/static/js/app.js',
+        // '/static/js/app.js',
         '/static/css/styles.css',
         '/static/Jordan_Rowland_Resume_2019.pdf',
         '/static/img/forest.jpeg',
         '/static/img/future2.jpeg',
         'https://unpkg.com/spectre.css/dist/spectre.min.css',
-        'https://use.fontawesome.com/releases/v5.8.1/css/all.css'
+        'https://use.fontawesome.com/releases/v5.8.1/css/all.css',
+        '/offline',
         ];
 
 

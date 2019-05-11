@@ -31,10 +31,11 @@ let blog_number = 0;
 
 
 let displayBlogPosts = function (res, blog_index = blog_number) {
-  post_title.innerText = res[blog_index].title;
-  post_timestamp.innerText = res[blog_index].timestamp.slice(0, 16);
-  post_body.innerText = `${res[blog_index].body.slice(0,500)}...`;
-  post_link.innerHTML = `<a href="blog/${res[blog_index].title_slug}">Read More</a>`;
+  console.log('pass')
+  // post_title.innerText = res[blog_index].title;
+  // post_timestamp.innerText = res[blog_index].timestamp.slice(0, 16);
+  // post_body.innerText = `${res[blog_index].body.slice(0,500)}...`;
+  // post_link.innerHTML = `<a href="blog/${res[blog_index].title_slug}">Read More</a>`;
 };
 
 
@@ -114,7 +115,7 @@ function toast_function() {
 }
 
 
-function sendData(dataToSend) {
+function sendDataNetworkOnly(dataToSend) {
   fetch('/', {
     method: "POST",
     headers: {
@@ -123,67 +124,12 @@ function sendData(dataToSend) {
     },
     body: dataToSend
   })
-  .catch(err => console.log(err, '-> Will retry when back online'));
 }
 
 
-submit_btn.addEventListener('click', () => {
-  let form = inputform.elements;
-
-  let form_name = form.name.value;
-  let form_email = form.email.value;
-  let form_subject = form.subject.value;
-  let form_message = form.message.value;
-
-  let data = JSON.stringify({
-    name: form_name,
-    email: form_email,
-    subject: form_subject,
-    message: form_message
-  });
-
-
-  if ('serviceWorker' in navigator && 'SyncManager' in window) {
-    navigator.serviceWorker.ready
-    .then(function(sw) {
-      let storedEmails;
-      readAllData('newEmails')
-        .then(res => res.length)
-          .then(function(storedEmails) {
-            writeData('newEmails', {
-              id: storedEmails + 1,
-              name: form_name,
-              email: form_email,
-              subject: form_subject,
-              message: form_message
-            })
-              .then(() => sw.sync.register('sync-new-email'))
-              .then(() => toast_function())
-              .catch(err => console.log(err))
-          })
-    })
-  } else {
-    sendData(data);
-  }
-
 // Send data from IndexedDB
-// readAllData('newEmails')
-//   .then(res => res.pop())
-//     .then(function(res) {
-//       fetch('/', {
-//           method: "POST",
-//           headers: {
-//             'Content-Type': 'application/json',
-//             'Accept': 'application/json'
-//           },
-//           body: JSON.stringify(res)
-//         })
-//         .catch(err => console.log(err, '-> Will retry when back online'));
-// })
-
-
-readAllData('newEmails')
-  // .then(res => res.pop())
+function sendFromIDB() {
+  readAllData('newEmails')
   .then(function(res) {
     fetch('/', {
         method: "POST",
@@ -193,10 +139,53 @@ readAllData('newEmails')
         },
         body: JSON.stringify(res)
       })
-      .catch(err => console.log(err, '-> Will retry when back online'));
-})
+    .then(res => clearAllData('newEmails'))
+    .catch(err => console.log(err, '-> Will retry when back online'));
+  })
+}
 
 
+console.log('funk4')
+submit_btn.addEventListener('click', () => {
+  let form = inputform.elements;
+  let form_name = form.name.value;
+  let form_email = form.email.value;
+  let form_subject = form.subject.value;
+  let form_message = form.message.value;
+  let timestamp = Date()
+
+  let data = JSON.stringify({
+    name: form_name,
+    email: form_email,
+    subject: form_subject,
+    message: form_message,
+    timestamp: timestamp
+  });
+
+
+  if ('serviceWorker' in navigator && 'SyncManager' in window) {
+    navigator.serviceWorker.ready
+    .then(function(sw) {
+      let storedEmails;
+      readAllData('newEmails')
+      .then(res => res.length)
+      .then(function(storedEmails) {
+        writeData('newEmails', {
+          id: storedEmails + 1,
+          name: form_name,
+          email: form_email,
+          subject: form_subject,
+          message: form_message,
+          timestamp: timestamp
+        })
+        .then(() => sw.sync.register('sync-new-email'))
+        .then(() => toast_function())
+        .catch(err => console.log(err))
+      })
+    })
+  } else {
+    sendDataNetworkOnly(data);
+  }
 
 
   form.name.value = '';
@@ -205,8 +194,6 @@ readAllData('newEmails')
   form.message.value = '';
   count.innerText = '';
   submit_btn.setAttribute('disabled', 'disabled');
-
-
 
 });
 

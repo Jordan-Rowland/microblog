@@ -16,6 +16,11 @@
     {{ email.subject }}
     </h1>
     <p>
+        <em>
+    {{ email.timestamp[:21] }}
+        </em>
+    </p>
+    <p>
     {{ email.name }}
     </p>
     <p>
