@@ -24,27 +24,28 @@ from ..models import Email, Post, User
 @main.route('/', methods=['GET', 'POST'])
 def index():
 
-    data = request.get_json()
-    if data:
-        email_db = Email(
-            email=data['email'],
-            name=data['name'],
-            subject=data['subject'],
-            body=data['message'])
-        db.session.add(email_db)
-        db.session.commit()
-        send_email(
-            to='jrowlandlmp@gmail.com',
-            subject=f'New message from {data["name"]} - {data["email"]}',
-            msg_body=f'''
-            [SUBJECT]
-            {data["subject"]}
+    list_of_emails = request.get_json()
+    if list_of_emails:
+        for data in list(list_of_emails):
+            email_db = Email(
+                email=data['email'],
+                name=data['name'],
+                subject=data['subject'],
+                body=data['message'])
+            db.session.add(email_db)
+            db.session.commit()
+            send_email(
+                to='jrowlandlmp@gmail.com',
+                subject=f'New message from {data["name"]} - {data["email"]}',
+                msg_body=f'''
+                [SUBJECT]
+                {data["subject"]}
 
-            [MESSAGE]
-            {data["message"]}
-            ''',
-            template='email'
-            )
+                [MESSAGE]
+                {data["message"]}
+                ''',
+                template='email'
+                )
 
     return render_template(
         'index.html',

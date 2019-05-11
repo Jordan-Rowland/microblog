@@ -166,7 +166,7 @@ submit_btn.addEventListener('click', () => {
     sendData(data);
   }
 
-// // Send data from IndexedDB
+// Send data from IndexedDB
 // readAllData('newEmails')
 //   .then(res => res.pop())
 //     .then(function(res) {
@@ -180,6 +180,22 @@ submit_btn.addEventListener('click', () => {
 //         })
 //         .catch(err => console.log(err, '-> Will retry when back online'));
 // })
+
+
+readAllData('newEmails')
+  // .then(res => res.pop())
+  .then(function(res) {
+    fetch('/', {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(res)
+      })
+      .catch(err => console.log(err, '-> Will retry when back online'));
+})
+
 
 
 
