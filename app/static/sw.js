@@ -3,7 +3,7 @@
 importScripts('/static/js/idb.js');
 importScripts('/static/js/utility.js');
 
-const CACHE_VERSION = 0.39;
+const CACHE_VERSION = 0.41;
 const STATIC_CACHE  = `staticCache_v${CACHE_VERSION}`;
 const DYNAMIC_CACHE  = `dynamicCache_v${CACHE_VERSION}`;
 const POST_CACHE = `blogPostCache_v${CACHE_VERSION}`;
@@ -83,7 +83,8 @@ async function addToCache(request, cacheName) {
 // Dynamic caching
 self.addEventListener('fetch', fetchEvent => {
   let request = fetchEvent.request;
-  if (request.url.includes('/api/posts')) {
+  if (request.url.includes('/api/posts')
+      || request.url.includes('/emails')) {
     fetchEvent.respondWith(
       caches.match(request).then(responseFromCache => {
         if (responseFromCache) {

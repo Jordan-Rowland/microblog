@@ -1,8 +1,7 @@
-from datetime import datetime
+
 
 from flask import (
     current_app,
-    g,
     jsonify,
     redirect,
     render_template,
@@ -12,8 +11,7 @@ from flask import (
 from flask_login import (
     login_required,
     login_user,
-    logout_user,
-    current_user)
+    logout_user,)
 
 from . import main
 from .forms import PasswordForm, PostForm
