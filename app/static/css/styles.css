@@ -85,6 +85,11 @@ html, body {
     background-attachment: fixed;
     background-position: center;
     background-size: cover;
+
+}
+
+@media (max-width: @iphone-screen) {
+    background-attachment: scroll;
 }
 
 .header-img img {
