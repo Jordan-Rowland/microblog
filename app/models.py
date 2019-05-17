@@ -1,10 +1,10 @@
 import datetime
 
-from flask import current_app, url_for
+from flask import url_for
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-from markdown import markdown
 import bleach
+from markdown import markdown
 
 from . import db, login_manager
 
@@ -76,7 +76,7 @@ class Post(db.Model):
 
 
     @staticmethod
-    def on_changed_body(target, value, oldvalue, initiator):
+    def on_changed_body(target, value):
         allowed_tags = ['a', 'abbr', 'acronym', 'b', 'blockquote', 'br', 'code',
                         'em', 'i', 'li', 'ol', 'pre', 'strong', 'ul',
                         'h1', 'h2', 'h3', 'p',]

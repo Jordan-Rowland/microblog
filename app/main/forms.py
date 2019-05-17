@@ -1,9 +1,9 @@
 from flask_wtf import FlaskForm
 from wtforms import (PasswordField, StringField,
                      SubmitField, TextAreaField)
-from flask_pagedown.fields import PageDownField
-
 from wtforms.validators import DataRequired, Length, Email
+
+from flask_pagedown.fields import PageDownField
 
 
 class PostForm(FlaskForm):

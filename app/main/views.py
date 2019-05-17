@@ -1,5 +1,3 @@
-
-
 from flask import (
     current_app,
     jsonify,
@@ -11,13 +9,14 @@ from flask import (
 from flask_login import (
     login_required,
     login_user,
-    logout_user,)
+    logout_user,
+    )
 
 from . import main
 from .forms import PasswordForm, PostForm
 
 from .. import db, slugify
-from ..email import send_email
+# from ..email import send_email
 from ..models import Email, Post, User
 
 
@@ -33,8 +32,7 @@ def index():
                 name=data.get('name'),
                 subject=data.get('subject'),
                 body=data.get('message'),
-                timestamp=data.get('timestamp')
-                )
+                timestamp=data.get('timestamp'))
             db.session.add(email_db)
             db.session.commit()
             # send_email(
@@ -117,8 +115,8 @@ def admin():
 @main.route('/emails')
 @login_required
 def emails():
-    emails = Email.query.all()
-    return render_template('emails.html', emails=emails)
+    emails_ = Email.query.all()
+    return render_template('emails.html', emails=emails_)
 
 
 @main.route('/sw.js', methods=['GET'])
@@ -181,5 +179,5 @@ def get_post(post_id):
 
 
 @main.errorhandler(404)
-def page_not_found(e):
+def page_not_found():
     return render_template('404.html'), 404

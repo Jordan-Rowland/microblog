@@ -1,3 +1,5 @@
+/* jshint esversion: 9 */
+
 // Opens new database, name and version number
 // Inside .open, must call function that creates a table
 // Arguments are name of the table, and primary key
