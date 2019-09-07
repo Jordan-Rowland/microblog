@@ -127,8 +127,12 @@ html, body {
     border-radius: 4px;
 }
 
-.serv-col {
-    margin-bottom: 30px;
+.serv {
+    margin-top: -30px;
+}
+
+.serv-icon {
+    font-size: 32px;
 }
 
 .contact-card {
@@ -276,6 +280,9 @@ i {
     padding: 45px;
 }
 
+.contact-details {
+    color: hsl(255, 70, 90);
+}
 
 /* Toast */
 
@@ -363,6 +370,10 @@ i {
 
 .footer {
     margin-top: -30px;
+}
+
+.serv-col {
+    margin-bottom: 30px;
 }
 
 }
