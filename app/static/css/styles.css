@@ -127,6 +127,10 @@ html, body {
     border-radius: 4px;
 }
 
+.serv-col {
+    margin-bottom: 30px;
+}
+
 .contact-card {
     padding: 15px;
 }
@@ -137,7 +141,6 @@ html, body {
     border-bottom: 1px solid #dcdcdc;
     position: relative;
     width: 100%;
-
 }
 
 .contact-message {
@@ -152,21 +155,13 @@ html, body {
     margin-right: 15px;
     margin-top: 12px;
     color: grey;
-
 }
 
 .number-count-red {
     color: red;
 }
 
-.services-card {
-    border-radius: 7.5px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-    margin-top: 10px;
-}
-
 .blog-content {
-    /*border: 1px black solid;*/
     max-height: 210px;
     overflow: hidden;
 }
@@ -331,26 +326,33 @@ i {
 
 /* MEDIA QUERIES */
 @media only screen and (max-width: 599px) {
-html {
+  html {
     min-width: 100vw;
-}
+  }
 
-.contact-background {
+  .contact-background {
     /*background-size: auto;*/
     height: 190%;
     /*min-height: 175%;*/
-}
+  }
+  .serv-col {
+    margin-bottom: 0px;
+  }
 }
 
 @media only screen and (min-width: 600px) {
-.contact-background {
+  .contact-background {
     height: 160%;
     min-height: 120%;
-}
+  }
 
-.footer {
+  .footer {
     margin-top: -10px;
-}
+  }
+
+  .serv-col {
+    margin-bottom: 0px;
+  }
 
 }
 
