@@ -1,5 +1,6 @@
 from flask import (
     current_app,
+    flash,
     jsonify,
     redirect,
     render_template,
@@ -102,6 +103,9 @@ def logout():
 def admin():
     form = PostForm()
     if form.validate_on_submit():
+        print(form.title.data,
+            form.body.data,
+            slugify(form.title.data))
         post = Post(title=form.title.data,
                     body=form.body.data,
                     title_slug=slugify(form.title.data))
@@ -109,6 +113,15 @@ def admin():
         db.session.commit()
         return redirect(url_for('.blog_post', title_slug=post.title_slug))
     return render_template('admin.html', form=form)
+
+
+@main.route('/deletepost/<post_id>')
+@login_required
+def deletepost(post_id):
+    Post.query.filter_by(id=post_id).delete()
+    db.session.commit()
+    flash(f'Post has been deleted.', 'card-panel blue lighten-2 s12')
+    return redirect(url_for('.admin'))
 
 
 @main.route('/emails/')
