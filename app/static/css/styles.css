@@ -88,9 +88,9 @@ html, body {
 
 }
 
-@media (max-width: @iphone-screen) {
+/* @media (max-width: @iphone-screen) {
     background-attachment: scroll;
-}
+} */
 
 .header-img img {
     width: 100%;
@@ -386,4 +386,18 @@ i {
 }
 
 @media only screen and (min-width: 1800px) {
+}
+
+.portfolio-container {
+    display: flex;
+    justify-content: space-between;
+    /* border: 1px solid black; */
+}
+
+.second-row {
+    justify-content: center;
+}
+
+.about-p {
+
 }
