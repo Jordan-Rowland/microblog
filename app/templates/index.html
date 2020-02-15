@@ -24,23 +24,19 @@
 <div class="container grid-lg">
 <section>
 <div>
-<div class="card">
+<!-- <div class="card"> -->
     <div class="columns">
       <div class="column">
   <div class="card-header">
     <div class="card-title h3 text-center">About me</div>
       </div>
     <div class="card-body">
-      <p>
-      I'm a 30 year old software developer living in Los Angeles, CA. I have a passion for all things technology, and love solving unique and complex problems using code.
-      </p>
+      <p class="text-center">
+        I'm a software developer living in Los Angeles with a passion for all things technology.
+        <br>
+        When I'm not coding web-apps, I'm exploring the city or writing and producing music.
+        <br>
 
-      <p>
-      I work with Python, Javascript, SQL, and HTML/CSS. Being a Full-Stack developer means I can monitor the entire process from beginning to end, and provide the best service and product for my clients.
-      </p>
-
-      <p>
-      I also enjoy writing automation scripts to eliminate the need for tedious and tiresome tasks. Nothing is more rewarding to me than writing a piece of software that genuinly helps someone accomplish something. No task is too big or small.
       </p>
       <div class="social-icons">
         <a href="https://github.com/jordan-rowland">
@@ -52,7 +48,7 @@
   </div>
       {# <div class="column col-sm-6"></div> #}
     </div>
-</div>
+<!-- </div> -->
 </div>
 </section>
 </div>
@@ -125,28 +121,124 @@
 </div>
 </div>
 
-<div class="card">
-  <div class="card-header">
-    <div class="card-title h5">FakeBook</div>
-    <div class="card-subtitle text-gray">A Full-Stack Social Media Clone</div>
+<div class="columns portfolio-container">
+  <div class="column col-4 col-md-12 card">
+    <div class="card-header">
+      <div class="card-title h5">FakeBook</div>
+      <div class="card-subtitle text-gray">A Full-Stack Social Media Clone with a RESTful API</div>
+    </div>
+    <div class="card-image">
+      <img src="{{ url_for('static', filename='img/Screenshot 2019-03-25 at 8.37.26 PM.png') }}" class="img-responsive">
+    </div>
+    <div class="card-body">
+      Follow users, post to your timeline, update your profile and more. A fully functional social media clone made with Flask for Python and Materialize CSS.
+      <br>
+      <br>
+      <p>
+        <strong>Technologies used:</strong> Flask(Python 3), Jinja2 template engine, PostreSQL, Vanilla JS, Material.css
+      </p>
+    </div>
+      <div class="card-footer">
+    <a href="http://fakebook-flask.herokuapp.com/">
+      <button class="custom-button">
+        Demo
+      </button>
+    </a>
+    <a href="https://github.com/Jordan-Rowland/fakebook-flask">
+      <button class="custom-button">
+        GitHub
+      </button>
+    </a>
+    </div>
   </div>
-  <div class="card-image">
-    <img src="{{ url_for('static', filename='img/Screenshot 2019-03-25 at 8.37.26 PM.png') }}" class="img-responsive">
+  <div class="column col-4 col-md-12 card">
+    <div class="card-header">
+      <div class="card-title h5">Svello</div>
+      <div class="card-subtitle text-gray">An API based Trello clone built with Svelte.js</div>
+    </div>
+    <div class="card-image">
+      <img src="{{ url_for('static', filename='img/68747470733a2f2f692e706f7374696d672e63632f44774c46355250382f53637265656e73686f742d323032302d30312d30312d61742d312d34352d30302d504d2e706e67.png') }}" class="img-responsive">
+    </div>
+    <div class="card-body">
+      Create notes and named lists to track projects, bugs or tasks. API based JAMStack architecture.
+      <br>
+      <br>
+      <p>
+        <strong>Technologies used:</strong> Flask(Python 3), Svelte.js, custom CSS, PostgreSQL
+      </p>
+    </div>
+      <div class="card-footer">
+    <a href="https://svello.herokuapp.com/">
+      <button class="custom-button">
+        Demo
+      </button>
+    </a>
+    <a href="https://github.com/Jordan-Rowland/flask-svelte-trello">
+      <button class="custom-button">
+        GitHub
+      </button>
+    </a>
+    </div>
   </div>
-  <div class="card-body">
-    Follow users, post to your timeline, update your profile and more. A fully functional social media clone made with Flask for Python and Materialize CSS.
+  <div class="column col-4 col-md-12 card">
+    <div class="card-header">
+      <div class="card-title h5">Monopoly Bank</div>
+      <div class="card-subtitle text-gray">A digital banking app to manage games of Monopoly</div>
+    </div>
+    <div class="card-image">
+      <img src="{{ url_for('static', filename='img/Screen Shot 2020-02-15 at 3.08.04 PM.png') }}" class="img-responsive">
+    </div>
+    <div class="card-body">
+      Add up to 8 players to manage state, transactions, bankrupts and community pot in a game of Monopoly.
+      <br>
+      <br>
+      <p>
+        <strong>Technologies used:</strong> Svelte.js, custom CSS, custom service-worker with cache-fallback strategy
+      </p>
+    </div>
+      <div class="card-footer">
+    <a href="https://jordan-rowland.github.io/monopoly-bank-svelte/public/">
+      <button class="custom-button">
+        Demo
+      </button>
+    </a>
+    <a href="https://github.com/Jordan-Rowland/monopoly-bank-svelte">
+      <button class="custom-button">
+        GitHub
+      </button>
+    </a>
+    </div>
   </div>
-    <div class="card-footer">
-  <a href="http://fakebook-flask.herokuapp.com/">
-    <button class="custom-button">
-      Demo
-    </button>
-  </a>
-  <a href="https://github.com/Jordan-Rowland/fakebook-flask">
-    <button class="custom-button">
-      GitHub
-    </button>
-  </a>
+</div>
+<div class="columns portfolio-container second-row">
+  <div class="column col-4 col-md-12 card">
+    <div class="card-header">
+      <div class="card-title h5">Portfolio and Blog</div>
+      <div class="card-subtitle text-gray">An offline capable PWA portfolio with integrated blogging platform</div>
+    </div>
+    <div class="card-image">
+      <img src="{{ url_for('static', filename='img/Screen Shot 2020-02-15 at 3.15.25 PM.png') }}" class="img-responsive">
+    </div>
+    <div class="card-body">
+      Showcases professional projects and blog posts. Built as a Progressive Web-App to work completely offline.
+      <br>
+      <br>
+      <p>
+        <strong>Technologies used:</strong> Flask(Python 3), custom JS, Spectre.css, PostgreSQL, IndexedDB, custom service-worker
+      </p>
+    </div>
+      <div class="card-footer">
+    <a href="https://jordan-rowland-portfolio.herokuapp.com/#portfolio">
+      <button class="custom-button">
+        Demo
+      </button>
+    </a>
+    <a href="https://github.com/Jordan-Rowland/microblog">
+      <button class="custom-button">
+        GitHub
+      </button>
+    </a>
+    </div>
   </div>
 </div>
 </section>
